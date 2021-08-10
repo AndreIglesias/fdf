@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 01:16:56 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/11 01:16:57 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/08/11 01:24:11 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	ft_rgbtoi(unsigned char r, unsigned char g, unsigned char b)
 	int green;
 	int blue;
 
-	red = (0xfeff01 + r) * (r != 0);
-	green = (0xfe01 + g) * (g != 0);
+	red = r * 0x10000;
+	green = g * 0x100;
 	blue = b;
 	return (red + green + blue);
 }
