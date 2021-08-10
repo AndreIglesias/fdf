@@ -6,7 +6,7 @@
 #    By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/27 13:15:05 by ciglesia          #+#    #+#              #
-#    Updated: 2021/08/10 18:49:55 by ciglesia         ###   ########.fr        #
+#    Updated: 2021/08/11 01:17:35 by ciglesia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ DIRSRC		=	./src/
 
 #***************** SRC ********************#
 
-SRC			=	ft_atoi.c ft_chrcount.c ft_memalloc.c ft_putchar.c ft_putchar_fd.c ft_putnbr.c ft_putnbr_fd.c ft_putstr_fd.c ft_strcmp.c ft_strlen.c ft_strncmp.c
+SRC			=	ft_atoi.c ft_chrcount.c ft_memalloc.c ft_putchar.c ft_putchar_fd.c ft_putnbr.c ft_putnbr_fd.c ft_putstr_fd.c ft_strcmp.c ft_strlen.c ft_strncmp.c ft_rgbtoi.c
 
 #***************** DEPS *******************#
 
