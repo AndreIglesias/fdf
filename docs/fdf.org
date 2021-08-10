@@ -1,0 +1,27 @@
+#+TITLE: fdf
+#+AUTHOR: ciglesia && ksoto
+#+EMAIL: ciglesia@student.42.fr && ksoto@student.42.fr
+#+OPTIONS: toc:nil
+
+* TODOS
+** TODO [#A] find out [100%]
+- [X] what is *live*?
+  * *function* that takes as _param_ a player number to qualify it as /alive/
+** TODO [#B] program [80%]
+- [X] structures [3/3]
+  - [X] Registry
+  - [X] Champion
+  - [X] Virtual Arena
+- [X] initialize
+- [X] validate && fill structures
+- [-] zero leaks
+  - [X] without interface
+  - [ ] with ncurses
+- [X] implement
+  - [X] circular memory
+  - [X] computer system
+
+* REFERENCE
+** ISOMETRIC PROJECTION
+
+* USE && EXAMPLES

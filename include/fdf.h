@@ -6,13 +6,14 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:33:16 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/10 18:33:28 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/08/11 01:02:02 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-
+# include "libft.h"
+# include "mlx.h"
 
 #endif
