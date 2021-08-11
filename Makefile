@@ -6,7 +6,7 @@
 #    By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:07 by ciglesia          #+#    #+#              #
-#    Updated: 2021/08/11 05:20:54 by ciglesia         ###   ########.fr        #
+#    Updated: 2021/08/11 20:40:37 by ciglesia         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -35,7 +35,7 @@ DIRCOM		=	$(DIRSRC)/compute/
 DIRDIS		=	$(DIRSRC)/display/
 
 SRC			=	main.c
-ANALYZE		=
+ANALYZE		=	analyze.c
 COMPUTE		=
 DISPLAY		=	render.c
 

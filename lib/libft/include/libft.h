@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 14:52:12 by ksoto             #+#    #+#             */
-/*   Updated: 2021/08/11 01:20:38 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/08/11 20:58:46 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
+# include <dirent.h>
+# include <sys/stat.h>
+
+# define BUFF_SIZE 6
 
 /*
 **	stdlib
@@ -45,11 +49,20 @@ int		ft_chrcount(const char *s, char c);
 size_t	ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_strdup(const char *s1);
+char	*ft_strndup(const char *s, size_t n);
+char	*ft_strchr(const char *s, int c);
+char	*ft_fstrjoin(char *s1, char *s2);
+char	*ft_strnew(size_t size);
+char	*ft_strncpy(char *dst, const char *src, size_t len);
+char	*ft_strcat(char *restrict s1, const char *restrict s2);
 
 /*
 **	others
 */
 
 int	ft_rgbtoi(unsigned char r, unsigned char g, unsigned char b);
+int	is_file(char *filename);
+int	get_next_line(const int fd, char **line);
 
 #endif
