@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:32:13 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/11 05:23:25 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/08/11 12:39:39 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ static void	test()
 	res[1] -= 10;
 	if (!(win = mlx_new_window(mlx, res[0], res[1], "wireframe")))
 		return ;
-	mlx_string_put(mlx, win, res[0] / 2 - 35, res[1] / 2, 0xFFFFFF, "FDF...");
 	mlx_hook(win, CROSS_EVENT, CROSS_MASK, exit_win, 0);
 	mlx_key_hook(win, key_win, mlx);
 	ft_plot(mlx, win, res, local_endian);
+	mlx_string_put(mlx, win, res[0] / 2 - 35, res[1] / 2, 0xFFFFFF, "FDF...");
 	mlx_loop(mlx);
 }
 
