@@ -6,7 +6,7 @@
 #    By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:07 by ciglesia          #+#    #+#              #
-#    Updated: 2021/08/10 23:30:01 by ciglesia         ###   ########.fr        #
+#    Updated: 2021/08/11 05:20:54 by ciglesia         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -37,7 +37,7 @@ DIRDIS		=	$(DIRSRC)/display/
 SRC			=	main.c
 ANALYZE		=
 COMPUTE		=
-DISPLAY		=
+DISPLAY		=	render.c
 
 SRCS		=	$(SRC) $(ANALYZE) $(COMPUTE) $(DISPLAY)
 
