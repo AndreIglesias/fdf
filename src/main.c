@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:32:13 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/11 21:14:33 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/08/12 01:20:31 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	fdf(char *file)
 	t_fdf	*fdf;
 
 	fdf = ft_fdf(file);
-	test();
+	//test();
 	return ;
 }
 

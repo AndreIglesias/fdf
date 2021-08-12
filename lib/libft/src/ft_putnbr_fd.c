@@ -3,38 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/04 08:28:55 by ksoto             #+#    #+#             */
-/*   Updated: 2021/07/21 13:24:35 by ksoto            ###   ########.fr       */
+/*   Created: 2021/08/12 01:15:17 by ciglesia          #+#    #+#             */
+/*   Updated: 2021/08/12 01:15:17 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	putnbr(long n, int fd)
+static void	ft_putint(int nb, int fd)
 {
-	int	counter;
-
-	counter = 0;
-	if (n == -2147483648)
-		counter += ft_putstr_fd("-2147483648", fd);
-	else if (n < 0)
-	{
-		counter += ft_putchar_fd('-', fd);
-		counter += putnbr(-n, fd);
-	}
-	else if (n >= 10)
-	{
-		counter += putnbr(n / 10, fd);
-		counter += ft_putchar_fd(n % 10 + '0', fd);
-	}
-	else if (n < 10)
-		counter += ft_putchar_fd(n + '0', fd);
-	return (counter);
+	if (nb > 9)
+		ft_putint(nb / 10, fd);
+	ft_putchar_fd(nb % 10 + '0', fd);
 }
 
-int	ft_putnbr_fd(int n, int fd)
+static void	ft_putnint(unsigned int n, int fd)
 {
-	return (putnbr(n, fd));
+	if (n > 9)
+		ft_putnint(n / 10, fd);
+	ft_putchar_fd(n % 10 + '0', fd);
+}
+
+void	ft_putnbr_fd(int n, int fd)
+{
+	unsigned int	nb;
+
+	if (n < 0)
+	{
+		nb = -n;
+		ft_putchar_fd('-', fd);
+		ft_putnint(nb, fd);
+	}
+	else
+		ft_putint(n, fd);
 }

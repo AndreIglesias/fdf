@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:33:16 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/11 21:14:39 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/08/12 01:11:00 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct		s_layer
 typedef struct		s_fdf
 {
 	int				*map;
+	int				mapx;
+	int				mapy;
 	void			*mlx;
 	void			*win;
 	int				local_endian;

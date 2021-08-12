@@ -6,13 +6,13 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 00:12:26 by ksoto             #+#    #+#             */
-/*   Updated: 2021/07/21 13:23:24 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/08/12 01:16:39 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putnbr(int n)
+void	ft_putnbr(int n)
 {
-	return (ft_putnbr_fd(n, 1));
+	ft_putnbr_fd(n, 1);
 }
