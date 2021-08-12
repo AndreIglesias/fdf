@@ -1,8 +1,16 @@
 # isometric:
 
+In order to create the isometric image, we will need some more concepts about Rotation matrix
+![rotation_matrix](https://www.google.com/search?q=rotation+matrix&client=ubuntu&hs=kFe&channel=fs&source=lnms&tbm=isch&sa=X&ved=2ahUKEwj5zYnClKzyAhVUOs0KHYljAVgQ_AUoAXoECAEQAw#imgrc=6UsslNI2H8sJIM)
+
+Using this concept about the lenght of each part of the triangle, we can conclude this rotation Matrix equation
+
+![first](https://wikimedia.org/api/rest_v1/media/math/render/svg/fe4ee3f1ce8e028da5bd4219c9dc7fc2216543e4)
+![second](https://wikimedia.org/api/rest_v1/media/math/render/svg/76cd56d49699c53e95cee42a40b340e0a167e078)
+
 ```
-structure->x = (structure->x - structure->y)*cos(0.7);
-structure->y = (structure->x + structure->y)*sin(0.7) - z;
+x1 = x0*cos(z0) - y0*sin(z0)
+y1 = x0*cos(z0) + y0*sin(z0)
 ```
 
 # Breseham line:
@@ -59,3 +67,7 @@ return 0;
 }
 ```
 
+## Resources
+
+* [Rotation Matrix, math part](https://www.youtube.com/watch?v=Ta8cKqltPfU)
+* [Rotation Matrix, wikipedia](https://en.wikipedia.org/wiki/Rotation_matrix)
