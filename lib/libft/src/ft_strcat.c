@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/05 00:12:26 by ksoto             #+#    #+#             */
-/*   Updated: 2021/08/12 01:16:39 by ciglesia         ###   ########.fr       */
+/*   Created: 2019/08/13 20:43:19 by ciglesia          #+#    #+#             */
+/*   Updated: 2021/06/14 15:41:12 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_putnbr(int n)
+char	*ft_strcat(char *restrict s1, const char *restrict s2)
 {
-	ft_putnbr_fd(n, 1);
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	while (s1[i])
+		i++;
+	j = 0;
+	while (s2[j])
+		s1[i++] = s2[j++];
+	s1[i] = '\0';
+	return (s1);
 }

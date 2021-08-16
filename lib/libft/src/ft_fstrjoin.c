@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_fstrjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/12 01:15:17 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/12 01:15:17 by ciglesia         ###   ########.fr       */
+/*   Created: 2019/08/13 20:39:19 by ciglesia          #+#    #+#             */
+/*   Updated: 2021/08/11 20:53:06 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_putint(int nb, int fd)
+char	*ft_fstrjoin(char *s1, char *s2)
 {
-	if (nb > 9)
-		ft_putint(nb / 10, fd);
-	ft_putchar_fd(nb % 10 + '0', fd);
-}
+	char	*str;
+	int		len;
 
-static void	ft_putnint(unsigned int n, int fd)
-{
-	if (n > 9)
-		ft_putnint(n / 10, fd);
-	ft_putchar_fd(n % 10 + '0', fd);
-}
-
-void	ft_putnbr_fd(int n, int fd)
-{
-	unsigned int	nb;
-
-	if (n < 0)
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	len = ft_strlen(s1) + ft_strlen(s2) + 1;
+	str = ft_memalloc(len);
+	if (!str)
 	{
-		nb = -n;
-		ft_putchar_fd('-', fd);
-		ft_putnint(nb, fd);
+		free(s1);
+		return (NULL);
 	}
-	else
-		ft_putint(n, fd);
+	str = ft_strcat(str, s1);
+	str = ft_strcat(str, s2);
+	free(s1);
+	return (str);
 }

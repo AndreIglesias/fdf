@@ -1,41 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   is_file.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/12 01:15:17 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/12 01:15:17 by ciglesia         ###   ########.fr       */
+/*   Created: 2021/08/11 20:30:10 by ciglesia          #+#    #+#             */
+/*   Updated: 2021/08/11 20:37:42 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_putint(int nb, int fd)
+int	is_file(char *filename)
 {
-	if (nb > 9)
-		ft_putint(nb / 10, fd);
-	ft_putchar_fd(nb % 10 + '0', fd);
-}
+	struct stat	buf;
 
-static void	ft_putnint(unsigned int n, int fd)
-{
-	if (n > 9)
-		ft_putnint(n / 10, fd);
-	ft_putchar_fd(n % 10 + '0', fd);
-}
-
-void	ft_putnbr_fd(int n, int fd)
-{
-	unsigned int	nb;
-
-	if (n < 0)
-	{
-		nb = -n;
-		ft_putchar_fd('-', fd);
-		ft_putnint(nb, fd);
-	}
-	else
-		ft_putint(n, fd);
+	if (lstat(filename, &buf) == -1)
+		return (0);
+	return ((S_ISDIR(buf.st_mode) * -1) ^ (S_ISBLK(buf.st_mode) * 6)
+		^ (S_ISLNK(buf.st_mode) * 5) ^ (S_ISREG(buf.st_mode) * 4)
+		^ (S_ISCHR(buf.st_mode) * 3) ^ (S_ISSOCK(buf.st_mode) * 2)
+		^ S_ISFIFO(buf.st_mode));
 }

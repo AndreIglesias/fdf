@@ -1,41 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/12 01:15:17 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/12 01:15:17 by ciglesia         ###   ########.fr       */
+/*   Created: 2019/08/13 20:43:15 by ciglesia          #+#    #+#             */
+/*   Updated: 2021/08/11 20:52:36 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_putint(int nb, int fd)
+char	*ft_strchr(const char *s, int c)
 {
-	if (nb > 9)
-		ft_putint(nb / 10, fd);
-	ft_putchar_fd(nb % 10 + '0', fd);
-}
+	int	i;
 
-static void	ft_putnint(unsigned int n, int fd)
-{
-	if (n > 9)
-		ft_putnint(n / 10, fd);
-	ft_putchar_fd(n % 10 + '0', fd);
-}
-
-void	ft_putnbr_fd(int n, int fd)
-{
-	unsigned int	nb;
-
-	if (n < 0)
+	i = 0;
+	while (s[i])
 	{
-		nb = -n;
-		ft_putchar_fd('-', fd);
-		ft_putnint(nb, fd);
+		if (s[i] == (char)c)
+			return ((char *)(s + i));
+		i++;
 	}
-	else
-		ft_putint(n, fd);
+	if ((char)c == '\0')
+		return ((char *)(s + i));
+	return (NULL);
 }
