@@ -20,6 +20,12 @@
 # define CROSS_EVENT 33
 # define CROSS_MASK 0x20000
 
+typedef struct		s_pixel
+{
+	float			x;
+	float			y;
+}					t_pixel;
+
 typedef struct		s_layer
 {
 	void			*img;
@@ -38,6 +44,8 @@ typedef struct		s_fdf
 	void			*win;
 	int				local_endian;
 	int				res[2];
+	t_pixel			*init;
+	t_pixel			*end;
 }					t_fdf;
 
 /*
