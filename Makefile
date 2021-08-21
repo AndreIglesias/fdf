@@ -45,6 +45,10 @@ SRCS		=	$(SRC) $(ANALYZE) $(COMPUTE) $(DISPLAY)
 
 DIROBJ		=	./depo/
 
+ifeq ($(shell test -e $(DIROBJ) || echo -n no), no)
+    $(shell mkdir $(DIROBJ))
+endif
+
 OAUX		=	$(SRCS:%=$(DIROBJ)%)
 DEPS		=	$(OAUX:.c=.d)
 OBJS		=	$(OAUX:.c=.o)
