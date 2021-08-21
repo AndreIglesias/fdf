@@ -1,12 +1,13 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiglesia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/12 13:43:51 by jiglesia          #+#    #+#             */
-/*   Updated: 2021/08/11 20:48:56 by ciglesia         ###   ########.fr       */
+/*   Created: 2021/08/12 01:24:55 by ciglesia          #+#    #+#             */
+/*   Updated: 2021/08/12 01:28:45 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +71,9 @@ int	get_next_line(const int fd, char **line)
 	static char	*pitcher;
 	char		*tmp;
 
-	if (!line)
+	if (fd == -1)
+		free(pitcher);
+	if (!line || fd == -1)
 		return (-1);
 	pitcher = fill_pitcher(fd, pitcher);
 	if (!pitcher)

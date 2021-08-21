@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:33:16 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/11 21:14:39 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/08/22 01:29:44 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define CROSS_EVENT 33
 # define CROSS_MASK 0x20000
 
-typedef struct		s_layer
+typedef struct s_layer
 {
 	void			*img;
 	int				bpp;
@@ -29,9 +29,17 @@ typedef struct		s_layer
 	char			*data;
 }					t_layer;
 
-typedef struct		s_fdf
+typedef struct s_x
 {
-	int				*map;
+	long			z;
+	int				color;
+}					t_x;
+
+typedef struct s_fdf
+{
+	int				mapx;
+	int				mapy;
+	t_x				**map;
 	void			*mlx;
 	void			*win;
 	int				local_endian;
@@ -54,6 +62,7 @@ void	ft_plot(void *mlx, void *win, int *res, int local_endian);
 **	Analyze
 */
 
+void	wireframe(char *name);
 void	load_map(t_fdf *fdf, char *name);
 
 #endif

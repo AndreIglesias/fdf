@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 14:52:12 by ksoto             #+#    #+#             */
-/*   Updated: 2021/08/11 20:58:46 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/08/21 23:14:02 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <dirent.h>
 # include <sys/stat.h>
 
-# define BUFF_SIZE 6
+# define BUFF_SIZE 36
 
 /*
 **	stdlib
@@ -34,8 +34,8 @@ int		ft_atoi(char *str);
 
 int		ft_putchar(char c);
 int		ft_putchar_fd(char c, int fd);
-int		ft_putnbr_fd(int n, int fd);
-int		ft_putnbr(int n);
+void	ft_putnbr_fd(int n, int fd);
+void	ft_putnbr(int n);
 int		ft_putstr_fd(const char *s, int fd);
 
 /*
@@ -60,9 +60,9 @@ char	*ft_strcat(char *restrict s1, const char *restrict s2);
 /*
 **	others
 */
-
-int	ft_rgbtoi(unsigned char r, unsigned char g, unsigned char b);
-int	is_file(char *filename);
-int	get_next_line(const int fd, char **line);
+char	**ft_strsplit(char const *s, char c);
+int		ft_rgbtoi(unsigned char r, unsigned char g, unsigned char b);
+int		is_file(char *filename);
+int		get_next_line(const int fd, char **line);
 
 #endif
