@@ -1,3 +1,6 @@
 [submodule "lib/minilibx-linux"]
 	path = lib/minilibx-linux
 	url = git@github.com:42Paris/minilibx-linux.git
+[submodule "ncompiled"]
+	path = ncompiled
+	url = git@github.com:AndreIglesias/compiled.git
