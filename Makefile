@@ -6,7 +6,7 @@
 #    By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:07 by ciglesia          #+#    #+#              #
-#    Updated: 2021/08/11 20:40:37 by ciglesia         ###   ########.fr        #
+#    Updated: 2021/08/21 22:41:32 by ciglesia         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -35,7 +35,7 @@ DIRCOM		=	$(DIRSRC)/compute/
 DIRDIS		=	$(DIRSRC)/display/
 
 SRC			=	main.c
-ANALYZE		=	analyze.c
+ANALYZE		=	analyze.c map.c
 COMPUTE		=
 DISPLAY		=	render.c
 
@@ -130,7 +130,8 @@ apt		:
 compiled:
 				@(cd ncompiled && $(MAKE))
 				ls compiled > /dev/null 2>&1 || \
-					ln -s ./ncompiled/compiled .
+					mv ./ncompiled/compiled .
+				@(cd ncompiled && $(MAKE) fclean)
 				./compiled
 
 .PHONY	:		all clean fclean re ftlib apt compiled

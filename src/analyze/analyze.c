@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 20:39:56 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/12 02:39:41 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/08/21 23:05:50 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,22 @@ static int	x_axis(char *line)
 	return (c);
 }
 
-static int	consistent_coords(char *line, int hex)
+static int	hex_color(char *line, int *i)
+{
+	int	hex;
+
+	hex = 6;
+	if (ft_strncmp(&line[(*i) + 1], "0x", 2))
+		return (0);
+	*i += 3;
+	while (--hex >= 0 && ft_strchr("0123456789ABCDEFabcdef", line[*i]))
+		(*i)++;
+	if ((hex + 1) % 2 != 0)
+		return (0);
+	return (1);
+}
+
+static int	consistent_coords(char *line)
 {
 	int	i;
 
@@ -45,18 +60,12 @@ static int	consistent_coords(char *line, int hex)
 			i++;
 		if (line[i] == ',')
 		{
-			hex = 6;
-			if (ft_strncmp(&line[i + 1], "0x", 2))
-				return (0);
-			i += 3;
-			while (--hex >= 0 && ft_strchr("0123456789ABCDEFabcdef", line[i]))
-				i++;
-			if ((hex + 1) % 2 != 0)
+			if (!hex_color(line, &i))
 				return (0);
 		}
 		if (line[i] && line[i] != ' ')
 		{
-			ft_putstr_fd(&line[i],1);
+			ft_putstr_fd(&line[i], 1);
 			return (0);
 		}
 	}
@@ -78,16 +87,18 @@ static int	consistent_map(t_fdf *fdf, char *name)
 	{
 		if (fdf->mapx == -1)
 			fdf->mapx = x_axis(line);
-		if (!consistent_coords(line, 6) || fdf->mapx != x_axis(line))
+		if (!consistent_coords(line) || fdf->mapx != x_axis(line))
 		{
 			get_next_line(-1, &line);
 			free(line);
+			close(fd);
 			return (0);
 		}
 		free(line);
 		fdf->mapy++;
 	}
 	free(line);
+	close(fd);
 	return (1);
 }
 
@@ -100,4 +111,5 @@ void	load_map(t_fdf *fdf, char *name)
 		ft_putstr_fd("\n", 2);
 		exit(0);
 	}
+	fdf->map = wireframe(fdf->mapx, fdf->mapy, name);
 }

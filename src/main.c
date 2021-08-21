@@ -64,7 +64,7 @@ static void	fdf(char *file)
 	t_fdf	*fdf;
 
 	fdf = ft_fdf(file);
-	//test();
+	test();
 	return ;
 }
 
