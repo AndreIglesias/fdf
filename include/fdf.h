@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:33:16 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/21 23:03:51 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/08/22 01:29:44 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_layer
 
 typedef struct s_x
 {
-	long			val;
+	long			z;
 	int				color;
 }					t_x;
 
@@ -62,7 +62,7 @@ void	ft_plot(void *mlx, void *win, int *res, int local_endian);
 **	Analyze
 */
 
-t_x		**wireframe(int	mx, int my, char *name);
+void	wireframe(char *name);
 void	load_map(t_fdf *fdf, char *name);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 20:39:56 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/21 23:05:50 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/08/22 01:33:40 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,13 @@ static int	consistent_coords(char *line)
 	return (1);
 }
 
-static int	consistent_map(t_fdf *fdf, char *name)
+static int	consistent_map(t_fdf *fdf, char *name, char *line)
 {
-	char	*line;
 	int		fd;
 
 	fd = open(name, O_RDONLY);
 	if (fd < 0)
 		exit(1);
-	line = NULL;
 	fdf->mapx = -1;
 	fdf->mapy = 0;
 	while (get_next_line(fd, &line) > 0)
@@ -104,12 +102,12 @@ static int	consistent_map(t_fdf *fdf, char *name)
 
 void	load_map(t_fdf *fdf, char *name)
 {
-	if (!consistent_map(fdf, name))
+	if (!consistent_map(fdf, name, NULL))
 	{
 		ft_putstr_fd("fdf: error: inconsistent line: ", 2);
 		ft_putnbr_fd(fdf->mapy + 1, 2);
 		ft_putstr_fd("\n", 2);
 		exit(0);
 	}
-	fdf->map = wireframe(fdf->mapx, fdf->mapy, name);
+	wireframe(name);
 }
