@@ -6,12 +6,12 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 22:35:32 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/22 01:32:31 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/08/22 01:40:58 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
+
 static int	extract_line(t_fdf *fdf, char *line, int y)
 {
 	char	**tab;
