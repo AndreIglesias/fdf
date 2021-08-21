@@ -125,7 +125,8 @@ apt		:
 
 compiled:
 				@(cd ncompiled && $(MAKE))
-				ln -s ./ncompiled/compiled .
+				ls compiled > /dev/null 2>&1 || \
+					ln -s ./ncompiled/compiled .
 				./compiled
 
 .PHONY	:		all clean fclean re ftlib apt compiled
