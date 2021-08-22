@@ -59,8 +59,8 @@ static void	fill_img(t_layer *l, int w, int h, int local_endian)
 		x = 0;
 		if (before != 255 * y / h)
 		{
-			//red += 0x1;
-			green += 0x1;
+			red += 0x1;
+			//green += 0x1;
 			blue += 0x1;
 			before = 255 * y / h;
 		}

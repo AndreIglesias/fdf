@@ -123,9 +123,6 @@ ftlib	:
 apt		:
 				@(cd $(LIB) && $(MAKE) apt)
 
-compiled:
-				./compiled
-
 .PHONY	:		all clean fclean re ftlib apt compiled
 
 -include $(DEPS)
