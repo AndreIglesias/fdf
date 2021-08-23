@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 14:52:12 by ksoto             #+#    #+#             */
-/*   Updated: 2021/08/12 02:44:03 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/08/21 23:14:02 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ char	*ft_strcat(char *restrict s1, const char *restrict s2);
 /*
 **	others
 */
-
-int	ft_rgbtoi(unsigned char r, unsigned char g, unsigned char b);
-int	is_file(char *filename);
-int	get_next_line(const int fd, char **line);
+char	**ft_strsplit(char const *s, char c);
+int		ft_rgbtoi(unsigned char r, unsigned char g, unsigned char b);
+int		is_file(char *filename);
+int		get_next_line(const int fd, char **line);
 
 #endif

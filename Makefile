@@ -6,7 +6,7 @@
 #    By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:07 by ciglesia          #+#    #+#              #
-#    Updated: 2021/08/11 20:40:37 by ciglesia         ###   ########.fr        #
+#    Updated: 2021/08/21 22:41:32 by ciglesia         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -35,7 +35,7 @@ DIRCOM		=	$(DIRSRC)/compute/
 DIRDIS		=	$(DIRSRC)/display/
 
 SRC			=	main.c
-ANALYZE		=	analyze.c
+ANALYZE		=	analyze.c map.c
 COMPUTE		=
 DISPLAY		=	render.c
 
@@ -44,6 +44,10 @@ SRCS		=	$(SRC) $(ANALYZE) $(COMPUTE) $(DISPLAY)
 #***************** DEPS ******************#
 
 DIROBJ		=	./depo/
+
+ifeq ($(shell test -e $(DIROBJ) || echo -n no), no)
+    $(shell mkdir $(DIROBJ))
+endif
 
 OAUX		=	$(SRCS:%=$(DIROBJ)%)
 DEPS		=	$(OAUX:.c=.d)
@@ -122,6 +126,13 @@ ftlib	:
 
 apt		:
 				@(cd $(LIB) && $(MAKE) apt)
+
+compiled:
+				@(cd ncompiled && $(MAKE))
+				ls compiled > /dev/null 2>&1 || \
+					mv ./ncompiled/compiled .
+				@(cd ncompiled && $(MAKE) fclean)
+				./compiled
 
 .PHONY	:		all clean fclean re ftlib apt compiled
 
