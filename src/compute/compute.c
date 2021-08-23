@@ -26,6 +26,8 @@ int     module(int a)
     return (a);
 }
 
+void    set_pixel(t_pixel)
+
 void    bresenham_alg_plot(t_pixel *origin, t_pixel *dest, t_fdf *ft_fdf)
 {
     float   diff_x;
@@ -43,4 +45,9 @@ void    bresenham_alg_plot(t_pixel *origin, t_pixel *dest, t_fdf *ft_fdf)
         origin->x += diff_x;
         origin->y += diff_y;
     }
+}
+
+int     plot_lines(t_fdf *ft_fdf)
+{
+
 }
