@@ -50,6 +50,7 @@ typedef struct s_fdf
 	void			*win;
 	int				local_endian;
 	int				res[2];
+	int				view;
 	t_pixel			*init;
 	t_pixel			*end;
 }					t_fdf;
