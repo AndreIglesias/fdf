@@ -33,6 +33,13 @@ int		key_win(int key, void *p __attribute__((unused)))
 	{
 		exit(0);
 	}
+	if (key == 0xFF20)
+	{
+		if (fdf->view = 3)
+			fdf->view = 2;
+		else
+			fdf->view = 3;
+	}
 	return (0);
 }
 
