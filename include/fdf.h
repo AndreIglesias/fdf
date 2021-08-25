@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "mlx.h"
 # include <fcntl.h>
+# include <math.h>
 
 # define CROSS_EVENT 33
 # define CROSS_MASK 0x20000
@@ -66,6 +67,7 @@ t_fdf	*ft_fdf(char *name);
 */
 
 void	ft_plot(void *mlx, void *win, int *res, int local_endian);
+int     render_lines(t_fdf *ft_fdf);
 
 /*
 **	Analyze
@@ -73,5 +75,14 @@ void	ft_plot(void *mlx, void *win, int *res, int local_endian);
 
 void	wireframe(char *name);
 void	load_map(t_fdf *fdf, char *name);
+
+/*
+** Compute
+*/
+
+void    convert_isometric(t_pixel *px, int z, t_fdf *fdf);
+int		module(int a);
+int     max_calculator(int a, int b);
+
 
 #endif
