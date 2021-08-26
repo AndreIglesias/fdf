@@ -85,3 +85,78 @@ void		ft_plot(void *mlx, void *win, int *res, int local_endian)
 	fill_img(&l, res[0], res[1], local_endian);
 	mlx_put_image_to_window(mlx, win, l.img, 0, 0);
 }
+
+/*
+** plot pixel
+*/
+
+void    set_pixel(t_pixel *pixel, float x, float y)
+{
+    pixel->x = x;
+    pixel->y = y;
+}
+
+void    bresenham_alg_plot(t_pixel *origin, t_pixel *dest, t_fdf *fdf)
+{
+    float   diff_x;
+    float   diff_y;
+    int     max;
+    int     z1;
+    int     z2;
+
+    z1 = fdf->map[(int)origin->y][(int)origin->x].z;
+    z2 = fdf->map[(int)dest->y][(int)dest->x].z;
+    convert_isometric(origin, z1, fdf);
+	convert_isometric(dest, z2, fdf);
+    diff_x = dest->x - origin->x;
+    diff_y = dest->y - origin->y;
+    max = max_calculator(module(diff_x), module(diff_y));
+    diff_x /= max;
+    diff_y /= max;
+    while ((int)(origin->x - dest->x) || (int)(origin->y - dest->y))
+    {
+        mlx_pixel_put(fdf->mlx, fdf->win, origin->x, origin->y, fdf->map[(int)origin->y][(int)origin->x].color);
+        origin->x += diff_x;
+        origin->y += diff_y;
+    }
+}
+
+
+void    render_vertical(t_pixel *p1, t_pixel *p2, int x, int y)
+{
+    set_pixel(p1, x, y);
+    set_pixel(p2, x + 1, y);
+}
+
+void    render_horizontal(t_pixel *p1, t_pixel *p2, int x, int y)
+{
+    set_pixel(p1, x, y);
+    set_pixel(p2, x, y + 1);
+}
+
+int     render_lines(t_fdf *fdf)
+{
+    int x;
+    int y;
+
+    mlx_clear_window(fdf->mlx, fdf->win);
+    y = -1;
+    while (++y < fdf->mapy)
+    {
+        x = -1;
+        while (++x < fdf->mapx)
+        {
+            if ( x < fdf->mapx - 1)
+            {
+                render_vertical(fdf->init, fdf->end, x, y);
+                bresenham_alg_plot(fdf->init, fdf->end, fdf);
+            }
+            if ( y < fdf->mapy - 1)
+            {
+                render_horizontal(fdf->init, fdf->end, x, y);
+                bresenham_alg_plot(fdf->init, fdf->end, fdf);
+            }
+        }
+    }
+    return (0);
+}
