@@ -101,8 +101,8 @@ static void	fdf(char *file)
 
 	fdf = ft_fdf(file);
 	// test();
-	kate_test();
-	return ;
+	// kate_test();
+	return;
 }
 
 int	main(int ac, char **av)
