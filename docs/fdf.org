@@ -3,17 +3,34 @@
 #+EMAIL: ciglesia@student.42.fr && ksoto@student.42.fr
 #+OPTIONS: toc:nil
 
+please review wiki docs of the repository...
+
 * TODOS
-** TODO [#A] find out [100%]
-- [X] what is *live*?
-  * *function* that takes as _param_ a player number to qualify it as /alive/
-** TODO [#B] program [80%]
+** TODO [#A] find out [60%]
+- [X] what is *bresenham line*?
+  * *Algorithm* that draw a line
+- [X] How to do *isometric*?
+  * *Rotation matrix* understand how to use it to calculate initial and final point
+- [X] How to calculate distance of *vector*?
+  * *vector* is calculated by Pythagorean Theorem
+- [ ] How to manipulate pixel with *lib images*?
+  * *How to edit data of the image* using mlx_get_data_addr, rgb and vector concepts
+  * This is necesary to know if you want to allocate all the data before rendered
+- [ ] Details of the functions of *minilibX*
+  * detail the parameters and goal of the function of the minilibx library
+
+** TODO [#B] program [40%]
 - [X] structures [3/3]
-  - [X] Registry
-  - [X] Champion
-  - [X] Virtual Arena
-- [X] initialize
-- [X] validate && fill structures
+  - [X] fdf
+  - [X] map
+  - [X] pixel
+- [X] initialize - main
+- [X] read map && fill structures
+- [X] draw line algorithm
+- [X] isometric conversion algorithm
+- [ ] Calculate final and initial point 2D & 3D
+- [ ] Fill data image
+- [ ] Rendered
 - [-] zero leaks
   - [X] without interface
   - [ ] with ncurses
@@ -55,31 +72,31 @@ y1 = x0*cos(0m) + y0*sin(0m) - z;
  
 void drawline(int x0, int y0, int x1, int y1)
 {
-    int dx, dy, p, x, y;
+  int dx, dy, p, x, y;
  
-    dx=x1-x0;
-    dy=y1-y0;
+  dx=x1-x0;
+  dy=y1-y0;
     
-    x=x0;
-    y=y0;
+  x=x0;
+  y=y0;
     
-    p=2*dy-dx;
+  p=2*dy-dx;
     
-    while(x<x1)
-    {
+  while(x<x1)
+  {
     if(p>=0)
     {
-    putpixel(x,y,7);
-    y=y+1;
-    p=p+2*dy-2*dx;
+      putpixel(x,y,7);
+      y=y+1;
+      p=p+2*dy-2*dx;
     }
     else
     {
-    putpixel(x,y,7);
-    p=p+2*dy;
+      putpixel(x,y,7);
+      p=p+2*dy;
     }
     x=x+1;
-    }
+  }
 }
  
 int main()
