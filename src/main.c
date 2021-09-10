@@ -80,6 +80,7 @@ static void	kate_test()
 	fdf->local_endian = 0;
 	if (((unsigned char *)&a)[0] == 0x11)
 		fdf->local_endian = 1;
+	// set_map(fdf);
 	if (!(fdf->mlx = mlx_init()))
 		return ;
 	mlx_get_screen_size(fdf->mlx, &fdf->res[0], &fdf->res[1]);
