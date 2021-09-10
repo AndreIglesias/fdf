@@ -6,7 +6,7 @@
 #    By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/20 22:37:03 by ciglesia          #+#    #+#              #
-#    Updated: 2021/08/10 19:10:10 by ciglesia         ###   ########.fr        #
+#    Updated: 2021/09/10 20:05:13 by ciglesia         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -38,6 +38,6 @@ re:
 		@$(MAKE) all
 
 apt:
-		sudo apt-get install -y gcc make xorg libxext-dev libbsd-dev
+		sudo apt-get install -y gcc clang make xorg libxext-dev libbsd-dev
 
 .PHONY: clean fclean all re
