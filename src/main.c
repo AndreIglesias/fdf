@@ -45,7 +45,6 @@ int		key_win(int key, void *p __attribute__((unused)))
 	}
 	return (0);
 }
-
 /*
 static void	test()
 {
@@ -94,6 +93,7 @@ static void	kate_test()
 	// ft_plot(fdf->mlx, fdf->win, fdf->res, fdf->local_endian);
 	// mlx_string_put(fdf->mlx, fdf->win, fdf->res[0] / 2 - 35, fdf->res[1] / 2, 0xFFFFFF, "FDF...");
 	mlx_loop(fdf->mlx);
+	mlx_destroy_window(fdf->mlx, fdf->win);
 }
 
 static void	fdf(char *file)
@@ -102,7 +102,7 @@ static void	fdf(char *file)
 
 	fdf = ft_fdf(file);
 	// test();
-	// kate_test();
+	kate_test();
 	return;
 }
 

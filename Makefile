@@ -36,7 +36,7 @@ DIRDIS		=	$(DIRSRC)/display/
 
 SRC			=	main.c
 ANALYZE		=	analyze.c map.c
-COMPUTE		=
+COMPUTE		=	compute.c
 DISPLAY		=	render.c
 
 SRCS		=	$(SRC) $(ANALYZE) $(COMPUTE) $(DISPLAY)
