@@ -94,6 +94,7 @@ static void	kate_test()
 	// mlx_string_put(fdf->mlx, fdf->win, fdf->res[0] / 2 - 35, fdf->res[1] / 2, 0xFFFFFF, "FDF...");
 	mlx_loop(fdf->mlx);
 	mlx_destroy_window(fdf->mlx, fdf->win);
+	mlx_destroy_display(fdf->mlx);
 }
 
 static void	fdf(char *file)
