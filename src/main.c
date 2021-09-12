@@ -21,13 +21,13 @@ t_fdf	*ft_fdf(char *name)
 	return (&fdf);
 }
 
-int		exit_win(void *p __attribute__((unused)))
+int	exit_win(void *p __attribute__((unused)))
 {
 	exit(0);
 	return (1);
 }
 
-int		key_win(int key, void *p __attribute__((unused)))
+int	key_win(int key, void *p __attribute__((unused)))
 {
 	t_fdf	*fdf;
 
@@ -70,16 +70,29 @@ static void	test()
 }
 */
 
-static void	kate_test()
+static void	init_map(void)
+{
+	t_fdf	*fdf;
+
+	fdf = ft_fdf(NULL);
+	fdf->coord_x = 0;
+	fdf->coord_y = 0;
+	fdf->side_z = 1;
+	fdf->side_x = cos(M_PI / 3) * fdf->side_z;
+	fdf->side_y = fdf->side_x * sin(M_PI / 6);
+}
+
+static void	kate_test(void)
 {
 	int		a;
-	t_fdf	*fdf = ft_fdf(NULL);
+	t_fdf	*fdf;
 
+	fdf = ft_fdf(NULL);
 	a = 0x11223344;
 	fdf->local_endian = 0;
 	if (((unsigned char *)&a)[0] == 0x11)
 		fdf->local_endian = 1;
-	// set_map(fdf);
+	init_map();
 	if (!(fdf->mlx = mlx_init()))
 		return ;
 	mlx_get_screen_size(fdf->mlx, &fdf->res[0], &fdf->res[1]);
@@ -93,8 +106,8 @@ static void	kate_test()
 	// ft_plot(fdf->mlx, fdf->win, fdf->res, fdf->local_endian);
 	// mlx_string_put(fdf->mlx, fdf->win, fdf->res[0] / 2 - 35, fdf->res[1] / 2, 0xFFFFFF, "FDF...");
 	mlx_loop(fdf->mlx);
-	mlx_destroy_window(fdf->mlx, fdf->win);
-	mlx_destroy_display(fdf->mlx);
+	// mlx_destroy_window(fdf->mlx, fdf->win);
+	// mlx_destroy_display(fdf->mlx);
 }
 
 static void	fdf(char *file)

@@ -21,13 +21,13 @@
 # define CROSS_EVENT 33
 # define CROSS_MASK 0x20000
 
-typedef struct		s_pixel
+typedef struct s_pixel
 {
 	float			x;
 	float			y;
 }					t_pixel;
 
-typedef struct		s_layer
+typedef struct s_layer
 {
 	void			*img;
 	int				bpp;
@@ -47,6 +47,15 @@ typedef struct s_fdf
 	int				mapx;
 	int				mapy;
 	t_x				**map;
+	int				coord_x;
+	int				coord_y;
+	double			side_x;
+	double			side_y;
+	double			side_z;
+	int				x0;
+	int				x1;
+	int				y0;
+	int				y1;
 	void			*mlx;
 	void			*win;
 	int				local_endian;
@@ -67,7 +76,7 @@ t_fdf	*ft_fdf(char *name);
 */
 
 void	ft_plot(void *mlx, void *win, int *res, int local_endian);
-int     render_lines(t_fdf *ft_fdf);
+int		render_lines(t_fdf *ft_fdf);
 
 /*
 **	Analyze
@@ -80,9 +89,8 @@ void	load_map(t_fdf *fdf, char *name);
 ** Compute
 */
 
-void    convert_isometric(t_pixel *px, int z, t_fdf *fdf);
+void	convert_isometric(t_pixel *px, int z, t_fdf *fdf);
 int		module(int a);
-int     max_calculator(int a, int b);
-
+int		max_calculator(int a, int b);
 
 #endif
