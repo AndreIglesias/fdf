@@ -75,7 +75,7 @@ static void	fill_img(t_layer *l, int w, int h, int local_endian)
 	}
 }
 
-void		ft_plot(void *mlx, void *win, int *res, int local_endian)
+void	ft_plot(void *mlx, void *win, int *res, int local_endian)
 {
 	t_layer	l;
 
@@ -87,82 +87,39 @@ void		ft_plot(void *mlx, void *win, int *res, int local_endian)
 }
 
 /*
-** plot pixel
+** set pixel: assign values to the pixel
 */
 
-void    set_pixel(t_pixel *pixel, float x, float y)
+void	set_pixel(t_pixel *pixel, float x, float y)
 {
-    pixel->x = x;
-    pixel->y = y;
+	pixel->x = x;
+	pixel->y = y;
 }
 
 /*
+** bresenham_line: bresenham algorithm to plot a line pixel by pixel
 ** diff_x: distance that x need to advance
 ** diff_y: distance that y need to advance
 */
 
-void    bresenham_alg_plot(t_pixel *origin, t_pixel *dest, t_fdf *fdf)
+void	bresenham_line(void)
 {
-    float   diff_x;
-    float   diff_y;
-    int     max;
-//    int     z1;
-//    int     z2;
+	float	diff_x;
+	float	diff_y;
+	int		max;
+	t_fdf	*fdf;
 
-//    z1 = fdf->map[(int)origin->y][(int)origin->x].z;
-//    z2 = fdf->map[(int)dest->y][(int)dest->x].z;
-    //convert_isometric(origin, z1, fdf);
-	//convert_isometric(dest, z2, fdf);
-    diff_x = dest->x - origin->x; //calculo de los pasos de x
-    diff_y = dest->y - origin->y;
-    max = max_calculator(module(diff_x), module(diff_y)); // calculo del numero grande para divirlo y como max se avance 1 pixel
-    diff_x /= max;
-    diff_y /= max;
-    while ((int)(origin->x - dest->x) || (int)(origin->y - dest->y))
-    {
-        mlx_pixel_put(fdf->mlx, fdf->win, origin->x, origin->y, 0xffffff);
-        origin->x += diff_x;
-        origin->y += diff_y;
-    }
-}
-
-
-
-void    render_vertical(t_pixel *p1, t_pixel *p2, int x, int y)
-{
-    set_pixel(p1, x, y);
-    set_pixel(p2, x + 1, y);
-}
-
-void    render_horizontal(t_pixel *p1, t_pixel *p2, int x, int y)
-{
-    set_pixel(p1, x, y);
-    set_pixel(p2, x, y + 1);
-}
-
-int     render_lines(t_fdf *fdf)
-{
-    int x;
-    int y;
-
-//    mlx_clear_window(fdf->mlx, fdf->win);
-    y = -1;
-    while (++y < fdf->mapy)
-    {
-        x = -1;
-        while (++x < fdf->mapx)
-        {
-            if (x < fdf->mapx - 1)
-            {
-                render_vertical(fdf->init, fdf->end, x, y);
-                bresenham_alg_plot(fdf->init, fdf->end, fdf);
-            }
-            if ( y < fdf->mapy - 1)
-            {
-                render_horizontal(fdf->init, fdf->end, x, y);
-                bresenham_alg_plot(fdf->init, fdf->end, fdf);
-            }
-        }
-    }
-    return (0);
+	fdf = ft_fdf(NULL);
+	diff_x = fdf->end->x - fdf->init->x;
+	diff_y = fdf->end->y - fdf->init->y;
+	max = max_calculator(module(diff_x), module(diff_y));
+	diff_x /= max;
+	diff_y /= max;
+	while ((int)(fdf->init->x - fdf->end->x) || \
+			(int)(fdf->init->y - fdf->end->y))
+	{
+		mlx_pixel_put(fdf->mlx, fdf->win, fdf->init->x, fdf->init->y, 0xffffff);
+		fdf->init->x += diff_x;
+		fdf->init->y += diff_y;
+	}
 }
