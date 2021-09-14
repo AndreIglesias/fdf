@@ -47,15 +47,6 @@ typedef struct s_fdf
 	int				mapx;
 	int				mapy;
 	t_x				**map;
-	int				coord_x;
-	int				coord_y;
-	double			side_x;
-	double			side_y;
-	double			side_z;
-	int				x0;
-	int				x1;
-	int				y0;
-	int				y1;
 	void			*mlx;
 	void			*win;
 	int				local_endian;
@@ -76,7 +67,7 @@ t_fdf	*ft_fdf(char *name);
 */
 
 void	ft_plot(void *mlx, void *win, int *res, int local_endian);
-int		render_lines(t_fdf *ft_fdf);
+// int		render_lines(t_fdf *ft_fdf);
 
 /*
 **	Analyze
@@ -88,7 +79,7 @@ void	load_map(t_fdf *fdf, char *name);
 /*
 ** Compute
 */
-
+void    bresenham_line(void);
 // void    bresenham_alg_plot(t_pixel *origin, t_pixel *dest, t_fdf *fdf);
 void	convert_isometric(t_pixel *px, int z, t_fdf *fdf);
 int		module(int a);
