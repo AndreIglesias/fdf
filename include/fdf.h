@@ -89,6 +89,7 @@ void	load_map(t_fdf *fdf, char *name);
 ** Compute
 */
 
+// void    bresenham_alg_plot(t_pixel *origin, t_pixel *dest, t_fdf *fdf);
 void	convert_isometric(t_pixel *px, int z, t_fdf *fdf);
 int		module(int a);
 int		max_calculator(int a, int b);

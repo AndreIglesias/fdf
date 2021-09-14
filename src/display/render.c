@@ -96,30 +96,36 @@ void    set_pixel(t_pixel *pixel, float x, float y)
     pixel->y = y;
 }
 
+/*
+** diff_x: distance that x need to advance
+** diff_y: distance that y need to advance
+*/
+
 void    bresenham_alg_plot(t_pixel *origin, t_pixel *dest, t_fdf *fdf)
 {
     float   diff_x;
     float   diff_y;
     int     max;
-    int     z1;
-    int     z2;
+//    int     z1;
+//    int     z2;
 
-    z1 = fdf->map[(int)origin->y][(int)origin->x].z;
-    z2 = fdf->map[(int)dest->y][(int)dest->x].z;
+//    z1 = fdf->map[(int)origin->y][(int)origin->x].z;
+//    z2 = fdf->map[(int)dest->y][(int)dest->x].z;
     //convert_isometric(origin, z1, fdf);
 	//convert_isometric(dest, z2, fdf);
-    diff_x = dest->x - origin->x;
+    diff_x = dest->x - origin->x; //calculo de los pasos de x
     diff_y = dest->y - origin->y;
-    max = max_calculator(module(diff_x), module(diff_y));
+    max = max_calculator(module(diff_x), module(diff_y)); // calculo del numero grande para divirlo y como max se avance 1 pixel
     diff_x /= max;
     diff_y /= max;
     while ((int)(origin->x - dest->x) || (int)(origin->y - dest->y))
     {
-        mlx_pixel_put(fdf->mlx, fdf->win, origin->x, origin->y, 0xFF);
+        mlx_pixel_put(fdf->mlx, fdf->win, origin->x, origin->y, 0xffffff);
         origin->x += diff_x;
         origin->y += diff_y;
     }
 }
+
 
 
 void    render_vertical(t_pixel *p1, t_pixel *p2, int x, int y)
@@ -139,7 +145,7 @@ int     render_lines(t_fdf *fdf)
     int x;
     int y;
 
-    mlx_clear_window(fdf->mlx, fdf->win);
+//    mlx_clear_window(fdf->mlx, fdf->win);
     y = -1;
     while (++y < fdf->mapy)
     {
@@ -158,6 +164,5 @@ int     render_lines(t_fdf *fdf)
             }
         }
     }
-	mlx_destroy_image(fdf->init, fdf->mlx);
     return (0);
 }
