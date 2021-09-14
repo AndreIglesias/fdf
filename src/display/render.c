@@ -129,7 +129,6 @@ void	bresenham_line(t_fdf *fdf, int **bmp)
 		fdf->init->x += diff_x;
 		fdf->init->y += diff_y;
 	}
-	ft_plot(bmp);
 }
 
 void	plot_map(t_fdf *fdf)
@@ -168,4 +167,5 @@ void	plot_map(t_fdf *fdf)
             }
         }
     }
+	ft_plot(bmp);
 }
