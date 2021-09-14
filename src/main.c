@@ -112,9 +112,9 @@ static void	draw_map(void)
 	if (!(fdf->win = mlx_new_window(fdf->mlx, fdf->res[0], fdf->res[1], "wireframe")))
 		return ;
 	mlx_hook(fdf->win, CROSS_EVENT, CROSS_MASK, exit_win, 0);
-	// plot_map(fdf);
+	plot_map(fdf);
 	mlx_key_hook(fdf->win, key_win, fdf->mlx);
-	mlx_loop_hook(fdf->mlx, plot_map, fdf);
+	// mlx_loop_hook(fdf->mlx, plot_map, fdf);
 	// ft_plot(fdf->mlx, fdf->win, fdf->res, fdf->local_endian);
 	// mlx_string_put(fdf->mlx, fdf->win, fdf->res[0] / 2 - 35, fdf->res[1] / 2, 0xFFFFFF, "FDF...");
 	mlx_loop(fdf->mlx);
