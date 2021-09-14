@@ -80,13 +80,25 @@ void	ft_plot(int **bmp)
 }
 
 /*
-** set pixel: assign values to the pixel
+** set coord: assign values to the pixel
 */
 
-void	set_pixel(t_pixel *pixel, float x, float y)
+void	set_coord(t_pixel *pixel, float x, float y)
 {
 	pixel->x = x;
 	pixel->y = y;
+}
+
+void	set_horizontal(t_fdf *fdf, int x, int y)
+{
+	set_coord(fdf->init, x, y);
+	set_coord(fdf->end, x, y + 1);
+}
+
+void	set_vertical(t_fdf *fdf, int x, int y)
+{
+	set_coord(fdf->init, x, y);
+	set_coord(fdf->end, x + 1, y);
 }
 
 /*
@@ -95,20 +107,37 @@ void	set_pixel(t_pixel *pixel, float x, float y)
 ** diff_y: distance that y need to advance
 */
 
-void	bresenham_line(void)
+void	bresenham_line(t_fdf *fdf, int **bmp)
 {
 	float	diff_x;
 	float	diff_y;
 	int		max;
-	t_fdf	*fdf;
-	int		**bmp;//
 
-	fdf = ft_fdf(NULL);
+	fdf->init->x *= fdf->zoom;
+	fdf->init->y *= fdf->zoom;
+	fdf->end->x *= fdf->zoom;
+	fdf->end->y *= fdf->zoom;
 	diff_x = fdf->end->x - fdf->init->x;
 	diff_y = fdf->end->y - fdf->init->y;
 	max = max_calculator(module(diff_x), module(diff_y));
 	diff_x /= max;
 	diff_y /= max;
+	while ((int)(fdf->init->x - fdf->end->x) || \
+			(int)(fdf->init->y - fdf->end->y))
+	{
+		bmp[(int)fdf->init->y][(int)fdf->init->x] = 0xffffff;//
+		fdf->init->x += diff_x;
+		fdf->init->y += diff_y;
+	}
+	ft_plot(bmp);
+}
+
+void	plot_map(t_fdf *fdf)
+{
+	int	x;
+	int	y;
+	int	**bmp;
+    
 	bmp = ft_memalloc(sizeof(int *) * fdf->res[1]);//
 	if (!bmp)//
 		exit(1);//
@@ -120,12 +149,23 @@ void	bresenham_line(void)
 			exit(1);//
 		i++;//
 	}//
-	while ((int)(fdf->init->x - fdf->end->x) || \
-			(int)(fdf->init->y - fdf->end->y))
-	{
-		bmp[(int)fdf->init->y][(int)fdf->init->x] = 0xffffff;//
-		fdf->init->x += diff_x;
-		fdf->init->y += diff_y;
-	}
-	ft_plot(bmp);
+	mlx_clear_window(fdf->mlx, fdf->win);
+    y = -1;
+    while (++y < fdf->mapy)
+    {
+        x = -1;
+        while (++x < fdf->mapx)
+        {
+            if (x < fdf->mapx - 1)
+            {
+				set_vertical(fdf, x, y);
+                bresenham_line(fdf, bmp);
+            }
+            if ( y < fdf->mapy - 1)
+            {
+				set_horizontal(fdf, x, y);
+                bresenham_line(fdf, bmp);
+            }
+        }
+    }
 }

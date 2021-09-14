@@ -52,6 +52,7 @@ typedef struct s_fdf
 	int				local_endian;
 	int				res[2];
 	int				view;
+	int				zoom;
 	t_pixel			*init;
 	t_pixel			*end;
 }					t_fdf;
@@ -79,8 +80,8 @@ void	load_map(t_fdf *fdf, char *name);
 /*
 ** Compute
 */
-void    bresenham_line(void);
-// void    bresenham_alg_plot(t_pixel *origin, t_pixel *dest, t_fdf *fdf);
+void	set_coord(t_pixel *pixel, float x, float y);
+void	plot_map(t_fdf *fdf);
 void	convert_isometric(t_pixel *px, int z, t_fdf *fdf);
 int		module(int a);
 int		max_calculator(int a, int b);
