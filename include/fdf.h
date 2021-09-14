@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:33:16 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/22 01:29:44 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/09/14 15:48:43 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_fdf	*ft_fdf(char *name);
 **	Display
 */
 
-void	ft_plot(void *mlx, void *win, int *res, int local_endian);
+void	ft_plot(int **bmp);
 // int		render_lines(t_fdf *ft_fdf);
 
 /*
