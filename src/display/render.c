@@ -112,11 +112,19 @@ void	bresenham_line(t_fdf *fdf, int **bmp)
 	float	diff_x;
 	float	diff_y;
 	int		max;
+	//long	z;
+	//long	z1;
 
+	//z = fdf->map[(int)fdf->init->y][(int)fdf->init->x].z;
+	//z1 = fdf->map[(int)fdf->end->y][(int)fdf->end->x].z;
 	fdf->init->x *= fdf->zoom;
 	fdf->init->y *= fdf->zoom;
 	fdf->end->x *= fdf->zoom;
 	fdf->end->y *= fdf->zoom;
+	//if (fdf->map[(int)fdf->init->y][(int)fdf->init->x].z)
+	//	fdf->map[(int)fdf->init->y][(int)fdf->init->x].color = 0xe80c0c;
+	//else
+	//	fdf->map[(int)fdf->init->y][(int)fdf->init->x].color = 0xffffff;
 	diff_x = fdf->end->x - fdf->init->x;
 	diff_y = fdf->end->y - fdf->init->y;
 	max = max_calculator(module(diff_x), module(diff_y));
@@ -125,7 +133,10 @@ void	bresenham_line(t_fdf *fdf, int **bmp)
 	while ((int)(fdf->init->x - fdf->end->x) || \
 			(int)(fdf->init->y - fdf->end->y))
 	{
-		bmp[(int)fdf->init->y][(int)fdf->init->x] = 0xffffff;//
+		if (fdf->map[(int)fdf->init->y][(int)fdf->init->x].z)
+			bmp[(int)fdf->init->y][(int)fdf->init->x] = 0xffffff; //se deberia cambiar a otro color
+		else
+			bmp[(int)fdf->init->y][(int)fdf->init->x] = 0xffffff;
 		fdf->init->x += diff_x;
 		fdf->init->y += diff_y;
 	}
