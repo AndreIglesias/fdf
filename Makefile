@@ -61,7 +61,7 @@ CFLAGS		=
 CFLAGS		=	-Wall -Wextra -ansi -pedantic -g
 	endif
 else
-CFLAGS		=	-Wall -Wextra
+CFLAGS		=	-Wall -Wextra -g
 endif
 
 ifndef VERBOSE
