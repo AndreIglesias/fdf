@@ -19,6 +19,8 @@ static void	init_map(t_fdf	*fdf)
 	fdf->end = malloc(sizeof(t_pixel));
 	set_coord(fdf->init, 0, 0);
 	set_coord(fdf->end, 0, 0);
+	fdf->view = 3;
+	fdf->zoom = 20;
 	fdf->shift_x = 150;
 	fdf->shift_y = 150;
 	fdf->zoom = 20;
@@ -63,7 +65,7 @@ int	key_win(int key, t_fdf	*fdf)
 	{
 		exit(0);
 	}
-	if (key == 0xFF20)
+	if (key == 32)
 	{
 		if (fdf->view == 3)
 			fdf->view = 2;
@@ -78,6 +80,10 @@ int	key_win(int key, t_fdf	*fdf)
 		fdf->shift_y += 100;
 	if (key == 65362)
 		fdf->shift_y -= 100;
+	if (key == 65293)
+		fdf->zoom += 1;
+	if (key == 65506)
+		fdf->zoom -= 1;
 //	printf("shift_x = %d\n", fdf->shift_x);
 //	printf("shift_y = %d\n", fdf->shift_y);
 //	printf("shift = %d\n", fdf->shift_x);
