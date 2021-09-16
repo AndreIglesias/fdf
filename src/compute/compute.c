@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   compute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 20:40:11 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/11 20:40:12 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/09/16 18:05:24 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,18 @@ void	convert_isometric(t_pixel *px, int z, t_fdf *fdf)
 }
 
 /*
-** convert_zoom: zoom in & zoom out using keys "enter" & "shift"
+** set_color: set color number in the structure
 */
 
-void	convert_zoom(t_fdf *fdf)
+void	set_color(t_fdf *fdf)
 {
-	fdf->init->x *= fdf->zoom;
-	fdf->init->y *= fdf->zoom;
-	fdf->end->x *= fdf->zoom;
-	fdf->end->y *= fdf->zoom;
-}
+	long	z;
+	long	z1;
 
-/*
-** convert_shift: shift right, left, up & down
-*/
-
-void	convert_shift(t_fdf *fdf)
-{
-	fdf->init->x += fdf->shift_x;
-	fdf->init->y += fdf->shift_y;
-	fdf->end->x += fdf->shift_x;
-	fdf->end->y += fdf->shift_y;
+	z = fdf->map[(int)fdf->init->y][(int)fdf->init->x].z;
+	z1 = fdf->map[(int)fdf->end->y][(int)fdf->end->x].z;
+	if (z || z1)
+		fdf->color = 0xe80c0c;
+	else
+		fdf->color = 0xffffff;
 }

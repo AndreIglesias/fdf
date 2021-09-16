@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:33:16 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/14 15:48:43 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/09/16 18:04:58 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ t_fdf	*ft_fdf(char *name);
 */
 
 void	ft_plot(int **bmp);
+void	plot_map(t_fdf *fdf);
 // int		render_lines(t_fdf *ft_fdf);
 
 /*
@@ -84,7 +85,9 @@ void	load_map(t_fdf *fdf, char *name);
 ** Compute
 */
 void	set_coord(t_pixel *pixel, float x, float y);
-void	plot_map(t_fdf *fdf);
+void	set_horizontal(t_fdf *fdf, int x, int y);
+void	set_vertical(t_fdf *fdf, int x, int y);
+void	set_color(t_fdf *fdf);
 void	convert_isometric(t_pixel *px, int z, t_fdf *fdf);
 int		module(int a);
 int		max_calculator(int a, int b);

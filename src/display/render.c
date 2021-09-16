@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 01:27:49 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/14 15:50:17 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/09/16 18:08:59 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,28 +80,6 @@ void	ft_plot(int **bmp)
 }
 
 /*
-** set coord: assign values to the pixel
-*/
-
-void	set_coord(t_pixel *pixel, float x, float y)
-{
-	pixel->x = x;
-	pixel->y = y;
-}
-
-void	set_horizontal(t_fdf *fdf, int x, int y)
-{
-	set_coord(fdf->init, x, y);
-	set_coord(fdf->end, x, y + 1);
-}
-
-void	set_vertical(t_fdf *fdf, int x, int y)
-{
-	set_coord(fdf->init, x, y);
-	set_coord(fdf->end, x + 1, y);
-}
-
-/*
 ** bresenham_line: bresenham algorithm to plot a line pixel by pixel
 ** diff_x: distance that x need to advance
 ** diff_y: distance that y need to advance
@@ -118,10 +96,7 @@ void	bresenham_line(t_fdf *fdf, int **bmp)
 	z = fdf->map[(int)fdf->init->y][(int)fdf->init->x].z;
 	z1 = fdf->map[(int)fdf->end->y][(int)fdf->end->x].z;
 	convert_zoom(fdf);
-	if (z || z1)
-		fdf->color = 0xe80c0c;
-	else
-		fdf->color = 0xffffff;
+	set_color(fdf);
 	convert_isometric(fdf->init, z, fdf);
 	convert_isometric(fdf->end, z1, fdf);
 	convert_shift(fdf);
@@ -144,36 +119,37 @@ void	plot_map(t_fdf *fdf)
 	int	x;
 	int	y;
 	int	**bmp;
-    
-	bmp = ft_memalloc(sizeof(int *) * fdf->res[1]);//
-	if (!bmp)//
-		exit(1);//
-	int		i = 0;//
-	while (i < fdf->res[1])//
-	{//
-		bmp[i] = ft_memalloc(sizeof(int) * fdf->res[0]);//
-		if (!bmp[i])//
-			exit(1);//
-		i++;//
-	}//
-	// mlx_clear_window(fdf->mlx, fdf->win);
-    y = -1;
-    while (++y < fdf->mapy)
-    {
-        x = -1;
-        while (++x < fdf->mapx)
-        {
-            if (x < fdf->mapx - 1)
-            {
+	int	i;
+
+	bmp = ft_memalloc(sizeof(int *) * fdf->res[1]);
+	if (!bmp)
+		exit(1);
+	i = 0;
+	while (i < fdf->res[1])
+	{
+		bmp[i] = ft_memalloc(sizeof(int) * fdf->res[0]);
+		if (!bmp[i])
+			exit(1);
+		i++;
+	}
+	mlx_clear_window(fdf->mlx, fdf->win);
+	y = -1;
+	while (++y < fdf->mapy)
+	{
+		x = -1;
+		while (++x < fdf->mapx)
+		{
+			if (x < fdf->mapx - 1)
+			{
 				set_vertical(fdf, x, y);
-                bresenham_line(fdf, bmp);
-            }
-            if ( y < fdf->mapy - 1)
-            {
+				bresenham_line(fdf, bmp);
+			}
+			if (y < fdf->mapy - 1)
+			{
 				set_horizontal(fdf, x, y);
-                bresenham_line(fdf, bmp);
-            }
-        }
-    }
+				bresenham_line(fdf, bmp);
+			}
+		}
+	}
 	ft_plot(bmp);
 }

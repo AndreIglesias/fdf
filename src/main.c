@@ -20,7 +20,7 @@ static void	init_map(t_fdf	*fdf)
 	set_coord(fdf->init, 0, 0);
 	set_coord(fdf->end, 0, 0);
 	fdf->view = 3;
-	fdf->zoom = 20;
+	fdf->zoom = 1;
 	fdf->shift_x = 150;
 	fdf->shift_y = 150;
 	fdf->zoom = 20;
@@ -57,10 +57,21 @@ int	exit_win(void *p __attribute__((unused)))
 	return (1);
 }
 
-int	key_win(int key, t_fdf	*fdf)
+void handle_shift(int key, t_fdf *fdf)
+{
+	if (key == 65361)
+		fdf->shift_x -= 100;
+	if (key == 65363)
+		fdf->shift_x += 100;
+	if (key == 65364)
+		fdf->shift_y += 100;
+	if (key == 65362)
+		fdf->shift_y -= 100;
+}
+
+int	key_win(int key, t_fdf *fdf)
 {
 	printf("%d\n", key);
-
 	if (key == 0xFF1B)
 	{
 		exit(0);
@@ -72,49 +83,15 @@ int	key_win(int key, t_fdf	*fdf)
 		else
 			fdf->view = 3;
 	}
-	if (key == 65361)
-		fdf->shift_x -= 100;
-	if (key == 65363)
-		fdf->shift_x += 100;
-	if (key == 65364)
-		fdf->shift_y += 100;
-	if (key == 65362)
-		fdf->shift_y -= 100;
+	handle_shift(key, fdf);
 	if (key == 65293)
 		fdf->zoom += 1;
 	if (key == 65506)
 		fdf->zoom -= 1;
-//	printf("shift_x = %d\n", fdf->shift_x);
-//	printf("shift_y = %d\n", fdf->shift_y);
-//	printf("shift = %d\n", fdf->shift_x);
-//	mlx_clear_window(fdf->mlx, fdf->win);
 	plot_map(fdf);
+//	mlx_clear_window(fdf->mlx, fdf->win);
 	return (0);
 }
-/*
-static void	test()
-{
-	int		a;
-	t_fdf	*fdf = ft_fdf(NULL);
-
-	a = 0x11223344;
-	fdf->local_endian = 0;
-	if (((unsigned char *)&a)[0] == 0x11)
-		fdf->local_endian = 1;
-	if (!(fdf->mlx = mlx_init()))
-		return ;
-	mlx_get_screen_size(fdf->mlx, &fdf->res[0], &fdf->res[1]);
-	fdf->res[0] -= 10;
-	fdf->res[1] -= 10;
-	if (!(fdf->win = mlx_new_window(fdf->mlx, fdf->res[0], fdf->res[1], "wireframe")))
-		return ;
-	mlx_hook(fdf->win, CROSS_EVENT, CROSS_MASK, exit_win, 0);
-	mlx_key_hook(fdf->win, key_win, fdf->mlx);
-	ft_plot(fdf->mlx, fdf->win, fdf->res, fdf->local_endian);
-	mlx_string_put(fdf->mlx, fdf->win, fdf->res[0] / 2 - 35, fdf->res[1] / 2, 0xFFFFFF, "FDF...");
-	mlx_loop(fdf->mlx);
-}
-*/
 
 static void	draw_map(void)
 {
@@ -135,7 +112,7 @@ static void	draw_map(void)
 		return ;
 	mlx_hook(fdf->win, CROSS_EVENT, CROSS_MASK, exit_win, 0);
 	printf("shift = %d\n", fdf->shift_x);
-//	plot_map(fdf);
+	// plot_map(fdf);
 	mlx_key_hook(fdf->win, key_win, fdf);
 	// mlx_loop_hook(fdf->mlx, plot_map, fdf);
 	// ft_plot(fdf->mlx, fdf->win, fdf->res, fdf->local_endian);
@@ -143,23 +120,13 @@ static void	draw_map(void)
 	mlx_loop(fdf->mlx);
 }
 
-int	print_key(int key, void *p __attribute__((unused)))
-{
-	t_fdf	*fdf;
-
-	fdf = ft_fdf(NULL);
-	printf("%d", key);
-	return(0);
-}
-
 static void	fdf(char *file)
 {
 	t_fdf	*fdf;
 
 	fdf = ft_fdf(file);
-	// test();
 	draw_map();
-	return;
+	return ;
 }
 
 int	main(int ac, char **av)
