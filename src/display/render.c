@@ -163,7 +163,7 @@ void	plot_map(t_fdf *fdf)
 			exit(1);//
 		i++;//
 	}//
-	mlx_clear_window(fdf->mlx, fdf->win);
+	// mlx_clear_window(fdf->mlx, fdf->win);
     y = -1;
     while (++y < fdf->mapy)
     {
