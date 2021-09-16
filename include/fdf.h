@@ -52,10 +52,10 @@ typedef struct s_fdf
 	int				local_endian;
 	int				res[2];
 	int				view;
-	int				zoom;
 	int				color;
 	int				shift_x;
 	int				shift_y;
+	int				zoom;
 	t_pixel			*init;
 	t_pixel			*end;
 }					t_fdf;
