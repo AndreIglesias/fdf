@@ -50,13 +50,21 @@ int	key_win(int key, void *p __attribute__((unused)))
 	{
 		exit(0);
 	}
-	if (key == 0xFF20)
+	else if (key == 0xFF20)
 	{
 		if (fdf->view == 3)
 			fdf->view = 2;
 		else
 			fdf->view = 3;
 	}
+	else if (key == 123)
+		fdf->shift_x -= 10;
+	else if (key == 124)
+		fdf->shift_x += 10;
+	else if (key == 125)
+		fdf->shift_y += 10;
+	else if (key == 126)
+		fdf->shift_y -= 10;
 	return (0);
 }
 /*

@@ -54,6 +54,8 @@ typedef struct s_fdf
 	int				view;
 	int				zoom;
 	int				color;
+	int				shift_x;
+	int				shift_y;
 	t_pixel			*init;
 	t_pixel			*end;
 }					t_fdf;

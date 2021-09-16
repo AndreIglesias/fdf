@@ -128,10 +128,10 @@ void	bresenham_line(t_fdf *fdf, int **bmp)
 	fdf->view = 3;
 	convert_isometric(fdf->init, z, fdf);
 	convert_isometric(fdf->end, z1, fdf);
-	fdf->init->x += 150;
-	fdf->init->y += 150;
-	fdf->end->x += 150;
-	fdf->end->y += 150;
+	fdf->init->x += fdf->shift_x;
+	fdf->init->y += fdf->shift_y;
+	fdf->end->x += fdf->shift_x;
+	fdf->end->y += fdf->shift_y;
 	diff_x = fdf->end->x - fdf->init->x;
 	diff_y = fdf->end->y - fdf->init->y;
 	max = max_calculator(module(diff_x), module(diff_y));
