@@ -125,7 +125,6 @@ void	bresenham_line(t_fdf *fdf, int **bmp)
 		fdf->color = 0xe80c0c;
 	else
 		fdf->color = 0xffffff;
-	fdf->view = 3;
 	convert_isometric(fdf->init, z, fdf);
 	convert_isometric(fdf->end, z1, fdf);
 	fdf->init->x += fdf->shift_x;
