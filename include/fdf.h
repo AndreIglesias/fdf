@@ -88,5 +88,7 @@ void	plot_map(t_fdf *fdf);
 void	convert_isometric(t_pixel *px, int z, t_fdf *fdf);
 int		module(int a);
 int		max_calculator(int a, int b);
+void	convert_zoom(t_fdf *fdf);
+void	convert_shift(t_fdf *fdf);
 
 #endif

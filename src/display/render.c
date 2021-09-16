@@ -117,20 +117,14 @@ void	bresenham_line(t_fdf *fdf, int **bmp)
 
 	z = fdf->map[(int)fdf->init->y][(int)fdf->init->x].z;
 	z1 = fdf->map[(int)fdf->end->y][(int)fdf->end->x].z;
-	fdf->init->x *= fdf->zoom;
-	fdf->init->y *= fdf->zoom;
-	fdf->end->x *= fdf->zoom;
-	fdf->end->y *= fdf->zoom;
+	convert_zoom(fdf);
 	if (z || z1)
 		fdf->color = 0xe80c0c;
 	else
 		fdf->color = 0xffffff;
 	convert_isometric(fdf->init, z, fdf);
 	convert_isometric(fdf->end, z1, fdf);
-	fdf->init->x += fdf->shift_x;
-	fdf->init->y += fdf->shift_y;
-	fdf->end->x += fdf->shift_x;
-	fdf->end->y += fdf->shift_y;
+	convert_shift(fdf);
 	diff_x = fdf->end->x - fdf->init->x;
 	diff_y = fdf->end->y - fdf->init->y;
 	max = max_calculator(module(diff_x), module(diff_y));
