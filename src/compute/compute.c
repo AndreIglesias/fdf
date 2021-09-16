@@ -46,3 +46,27 @@ void	convert_isometric(t_pixel *px, int z, t_fdf *fdf)
 		px->y = (px->x + px->y) * sin(0.7) - z;
 	}
 }
+
+/*
+** convert_zoom: zoom in & zoom out using keys "enter" & "shift"
+*/
+
+void	convert_zoom(t_fdf *fdf)
+{
+	fdf->init->x *= fdf->zoom;
+	fdf->init->y *= fdf->zoom;
+	fdf->end->x *= fdf->zoom;
+	fdf->end->y *= fdf->zoom;
+}
+
+/*
+** convert_shift: shift right, left, up & down
+*/
+
+void	convert_shift(t_fdf *fdf)
+{
+	fdf->init->x += fdf->shift_x;
+	fdf->init->y += fdf->shift_y;
+	fdf->end->x += fdf->shift_x;
+	fdf->end->y += fdf->shift_y;
+}
