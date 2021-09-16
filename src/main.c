@@ -13,12 +13,26 @@
 #include "fdf.h"
 #include <stdio.h>
 
+static void	init_map(t_fdf	*fdf)
+{
+	fdf->init = malloc(sizeof(t_pixel));
+	fdf->end = malloc(sizeof(t_pixel));
+	set_coord(fdf->init, 0, 0);
+	set_coord(fdf->end, 0, 0);
+	fdf->shift_x = 150;
+	fdf->shift_y = 150;
+	fdf->zoom = 20;
+}
+
 t_fdf	*ft_fdf(char *name)
 {
 	static t_fdf	fdf;
 
 	if (name)
+	{
 		load_map(&fdf, name);
+		init_map(&fdf);
+	}
 	return (&fdf);
 }
 
@@ -41,30 +55,34 @@ int	exit_win(void *p __attribute__((unused)))
 	return (1);
 }
 
-int	key_win(int key, void *p __attribute__((unused)))
+int	key_win(int key, t_fdf	*fdf)
 {
-	t_fdf	*fdf;
+	printf("%d\n", key);
 
-	fdf = ft_fdf(NULL);
 	if (key == 0xFF1B)
 	{
 		exit(0);
 	}
-	else if (key == 0xFF20)
+	if (key == 0xFF20)
 	{
 		if (fdf->view == 3)
 			fdf->view = 2;
 		else
 			fdf->view = 3;
 	}
-	else if (key == 123)
-		fdf->shift_x -= 10;
-	else if (key == 124)
-		fdf->shift_x += 10;
-	else if (key == 125)
-		fdf->shift_y += 10;
-	else if (key == 126)
-		fdf->shift_y -= 10;
+	if (key == 65361)
+		fdf->shift_x -= 100;
+	if (key == 65363)
+		fdf->shift_x += 100;
+	if (key == 65364)
+		fdf->shift_y += 100;
+	if (key == 65362)
+		fdf->shift_y -= 100;
+//	printf("shift_x = %d\n", fdf->shift_x);
+//	printf("shift_y = %d\n", fdf->shift_y);
+//	printf("shift = %d\n", fdf->shift_x);
+//	mlx_clear_window(fdf->mlx, fdf->win);
+	plot_map(fdf);
 	return (0);
 }
 /*
@@ -92,15 +110,6 @@ static void	test()
 }
 */
 
-static void	init_map(t_fdf	*fdf)
-{
-	fdf->init = malloc(sizeof(t_pixel));
-	fdf->end = malloc(sizeof(t_pixel));
-	set_coord(fdf->init, 0, 0);
-	set_coord(fdf->end, 0, 0);
-	fdf->zoom = 20;
-}
-
 static void	draw_map(void)
 {
 	int		a;
@@ -111,7 +120,6 @@ static void	draw_map(void)
 	fdf->local_endian = 0;
 	if (((unsigned char *)&a)[0] == 0x11)
 		fdf->local_endian = 1;
-	init_map(fdf);
 	if (!(fdf->mlx = mlx_init()))
 		return ; //crear fx handle error
 	mlx_get_screen_size(fdf->mlx, &fdf->res[0], &fdf->res[1]);
@@ -120,8 +128,9 @@ static void	draw_map(void)
 	if (!(fdf->win = mlx_new_window(fdf->mlx, fdf->res[0], fdf->res[1], "wireframe")))
 		return ;
 	mlx_hook(fdf->win, CROSS_EVENT, CROSS_MASK, exit_win, 0);
-	plot_map(fdf);
-	mlx_key_hook(fdf->win, key_win, fdf->mlx);
+	printf("shift = %d\n", fdf->shift_x);
+//	plot_map(fdf);
+	mlx_key_hook(fdf->win, key_win, fdf);
 	// mlx_loop_hook(fdf->mlx, plot_map, fdf);
 	// ft_plot(fdf->mlx, fdf->win, fdf->res, fdf->local_endian);
 	// mlx_string_put(fdf->mlx, fdf->win, fdf->res[0] / 2 - 35, fdf->res[1] / 2, 0xFFFFFF, "FDF...");
