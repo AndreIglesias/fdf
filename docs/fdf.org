@@ -3,17 +3,34 @@
 #+EMAIL: ciglesia@student.42.fr && ksoto@student.42.fr
 #+OPTIONS: toc:nil
 
+please review wiki docs of the repository...
+
 * TODOS
-** TODO [#A] find out [100%]
-- [X] what is *live*?
-  * *function* that takes as _param_ a player number to qualify it as /alive/
-** TODO [#B] program [80%]
+** TODO [#A] find out [60%]
+- [X] what is *bresenham line*?
+  * *Algorithm* that draw a line
+- [X] How to do *isometric*?
+  * *Rotation matrix* understand how to use it to calculate initial and final point
+- [X] How to calculate distance of *vector*?
+  * *vector* is calculated by Pythagorean Theorem
+- [ ] How to manipulate pixel with *lib images*?
+  * *How to edit data of the image* using mlx_get_data_addr, rgb and vector concepts
+  * This is necesary to know if you want to allocate all the data before rendered
+- [ ] Details of the functions of *minilibX*
+  * detail the parameters and goal of the function of the minilibx library
+
+** TODO [#B] program [40%]
 - [X] structures [3/3]
-  - [X] Registry
-  - [X] Champion
-  - [X] Virtual Arena
-- [X] initialize
-- [X] validate && fill structures
+  - [X] fdf
+  - [X] map
+  - [X] pixel
+- [X] initialize - main
+- [X] read map && fill structures
+- [X] draw line algorithm
+- [X] isometric conversion algorithm
+- [ ] Calculate final and initial point 2D & 3D
+- [ ] Fill data image
+- [ ] Rendered
 - [-] zero leaks
   - [X] without interface
   - [ ] with ncurses
@@ -21,7 +38,207 @@
   - [X] circular memory
   - [X] computer system
 
+* REQUIREMENTS
+- Your fdf have to show the map using isometric projection.
+- You must be able to quit the program by pressing ’esc’.
+- The use of images from minilibX is not required to validate the project, even we
+strongly encourage you to use them.
+- Find attached a binary called fdf as well as the example 42.fdf inside fdf.zip).
+
 * REFERENCE
 ** ISOMETRIC PROJECTION
+In order to create the isometric image, we will need some more concepts about Rotation matrix
+![rotation_matrix](https://www.google.com/search?q=rotation+matrix&client=ubuntu&hs=kFe&channel=fs&source=lnms&tbm=isch&sa=X&ved=2ahUKEwj5zYnClKzyAhVUOs0KHYljAVgQ_AUoAXoECAEQAw#imgrc=6UsslNI2H8sJIM)
+
+Using this concept about the lenght of each part of the triangle, we can conclude this rotation Matrix equation
+
+![first](https://wikimedia.org/api/rest_v1/media/math/render/svg/fe4ee3f1ce8e028da5bd4219c9dc7fc2216543e4)
+![second](https://wikimedia.org/api/rest_v1/media/math/render/svg/76cd56d49699c53e95cee42a40b340e0a167e078)
+
+#+BEGIN_SRC
+0m = 70;
+x1 = x0*cos(0m) - y0*sin(0m);
+y1 = x0*cos(0m) + y0*sin(0m) - z;
+#+END_SRC
+
+** Breseham line:
+[If you want to check the theory of this algorithm, click here](https://www.geeksforgeeks.org/bresenhams-line-generation-algorithm/)
+
+[Algorithm in C language](https://www.thecrazyprogrammer.com/2017/01/bresenhams-line-drawing-algorithm-c-c.html)
+
+#+BEGIN_SRC
+#include<iostream.h>
+#include<graphics.h>
+ 
+void drawline(int x0, int y0, int x1, int y1)
+{
+  int dx, dy, p, x, y;
+ 
+  dx=x1-x0;
+  dy=y1-y0;
+    
+  x=x0;
+  y=y0;
+    
+  p=2*dy-dx;
+    
+  while(x<x1)
+  {
+    if(p>=0)
+    {
+      putpixel(x,y,7);
+      y=y+1;
+      p=p+2*dy-2*dx;
+    }
+    else
+    {
+      putpixel(x,y,7);
+      p=p+2*dy;
+    }
+    x=x+1;
+  }
+}
+ 
+int main()
+{
+    int gdriver=DETECT, gmode, error, x0, y0, x1, y1;
+    initgraph(&gdriver, &gmode, "c:\\turboc3\\bgi");
+    
+    cout<<"Enter co-ordinates of first point: ";
+    cin>>x0>>y0;
+    
+    cout<<"Enter co-ordinates of second point: ";
+    cin>>x1>>y1;
+    drawline(x0, y0, x1, y1);
+    
+    return 0;
+}
+#+END_SRC
 
 * USE && EXAMPLES
+
+#+BEGIN_SRC
+void    bresenham_alg_plot(t_pixel *origin, t_pixel *dest, t_fdf *fdf)
+{
+    float   diff_x;
+    float   diff_y;
+    int     max;
+    int     z1;
+    int     z2;
+
+    z1 = fdf->map[(int)origin->y][(int)origin->x].z;
+    z2 = fdf->map[(int)dest->y][(int)dest->x].z;
+    convert_isometric(origin, z1, fdf);
+	  convert_isometric(dest, z2, fdf);
+    diff_x = dest->x - origin->x;
+    diff_y = dest->y - origin->y;
+    max = max_calculator(module(diff_x), module(diff_y));
+    diff_x /= max;
+    diff_y /= max;
+    while ((int)(origin->x - dest->x) || (int)(origin->y - dest->y))
+    {
+        mlx_pixel_put(fdf->mlx, fdf->win, origin->x, origin->y, fdf->map[(int)origin->y][(int)origin->x].color);
+        origin->x += diff_x;
+        origin->y += diff_y;
+    }
+}
+#+END_SRC
+
+* MINILIBX
+** init_data(data)
+Before we can do anything with the MiniLibX library we must include the <mlx.h> header to access all the functions and we should execute the mlx_init function. 
+With init_data, we initialize MiniLibX
+#+BEGIN_SRC
+  #include <mlx.h>
+
+  int	main(void)
+  {
+	  void	*mlx;
+
+	  mlx = mlx_init();
+  }
+#+END_SRC
+
+** mlx_hook
+#+BEGIN_SRC
+
+#+END_SRC
+
+** mlx_key_hook
+We have now registered a function that will print a message whenever we press a key. As you can see, we register a hook function with mlx_key_hook
+#+BEGIN_SRC
+#include <mlx.h>
+#include <stdio.h>
+
+typedef struct	s_vars {
+	void	*mlx;
+	void	*win;
+}				t_vars;
+
+int	key_hook(int keycode, t_vars *vars)
+{
+	printf("Hello from key_hook!\n");
+}
+
+int	main(void)
+{
+	t_vars	vars;
+
+	vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx, 640, 480, "Hello world!");
+	mlx_key_hook(vars.win, key_hook, &vars);
+	mlx_loop(vars.mlx);
+}
+#+END_SRC
+
+** mlx_loop_hook
+Hook into the mlx_loop
+#+BEGIN_SRC
+/*
+** Hook into each loop.
+**
+** @param	void *mlx_ptr	the mlx instance;
+** @param	int  (*f)()		the handler function, will be called as follows:
+**							(*f)(void *param);
+** @param	void *param		the parameter to give on each event;
+** @return	int				has no return value (bc).
+*/
+int		mlx_loop_hook(void *mlx_ptr, int (*f)(), void *param);
+#+END_SRC
+
+** mlx_put_image_to_window
+Puts an image to the given window instance at location (x,y). This is the recommended way to write large amounts of graphical data in one go. Do mind that when changing the memory of the locations, it will be displayed directly on the window.
+#+BEGIN_SRC
+/*
+** Put an image to the given window.
+**
+** @param	void *mlx_ptr	the mlx instance;
+** @param	void *win_ptr	the window instance;
+** @param	int  x			the x location of where the image ought to be placed;
+** @param	int  y			the y location of where the image ought to be placed;
+** @return	int				has no return value (bc).
+*/
+int		mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr, int x, int y);
+#+END_SRC
+
+** mlx_loop
+To initiate a loop, we call the mlx_loop function with the mlx instance as only parameter, take a look:
+#+BEGIN_SRC
+#include <mlx.h>
+
+int	render_next_frame(void *YourStruct);
+
+int	main(void)
+{
+	void	*mlx;
+
+	mlx = mlx_init();
+	mlx_loop_hook(mlx, render_next_frame, YourStruct);
+	mlx_loop(mlx);
+}
+#+END_SRC
+
+* Resources
+
+- [Rotation Matrix, math part](https://www.youtube.com/watch?v=Ta8cKqltPfU)
+- [Rotation Matrix, wikipedia](https://en.wikipedia.org/wiki/Rotation_matrix)

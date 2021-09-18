@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 01:27:49 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/21 23:02:42 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/09/16 18:08:59 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,46 +42,114 @@ static void	set_color_ptr(unsigned char *line, t_layer *l, int color, int x, int
 	}
 }
 
-static void	fill_img(t_layer *l, int w, int h, int local_endian)
+static void	fill_img(t_layer *l, int w, int h, int **bmp)
 {
 	int				x;
 	int				y;
 	int				color;
 	unsigned char	*ptr;
-	unsigned char	red = 0x0;
-	unsigned char	green = 0x0;
-	unsigned char	blue = 0x0;
-	int				before = h;
+	t_fdf			*fdf;
 
+	fdf = ft_fdf(NULL);
 	y = 0;
 	while (y < h)
 	{
 		ptr = (unsigned char *)l->data + y * l->bpl;
 		x = 0;
-		if (before != 255 * y / h)
-		{
-			red += 0x1;
-			green += 0x1;
-			blue += 0x1;
-			before = 255 * y / h;
-		}
 		while (x < w)
 		{
-			color = ft_rgbtoi(red, green, blue);
-			set_color_ptr(ptr, l, color, x, local_endian);
+			color = bmp[y][x];
+			set_color_ptr(ptr, l, color, x, fdf->local_endian);
 			x++;
 		}
 		y++;
 	}
 }
 
-void		ft_plot(void *mlx, void *win, int *res, int local_endian)
+void	ft_plot(int **bmp)
 {
 	t_layer	l;
+	t_fdf	*fdf;
 
-	if (!(l.img = mlx_new_image(mlx, res[0], res[1])))
+	fdf = ft_fdf(NULL);
+	if (!(l.img = mlx_new_image(fdf->mlx, fdf->res[0], fdf->res[1])))
 		exit(1);
 	l.data = mlx_get_data_addr(l.img, &l.bpp, &l.bpl, &l.endian);
-	fill_img(&l, res[0], res[1], local_endian);
-	mlx_put_image_to_window(mlx, win, l.img, 0, 0);
+	fill_img(&l, fdf->res[0], fdf->res[1], bmp);
+	mlx_put_image_to_window(fdf->mlx, fdf->win, l.img, 0, 0);
+}
+
+/*
+** bresenham_line: bresenham algorithm to plot a line pixel by pixel
+** diff_x: distance that x need to advance
+** diff_y: distance that y need to advance
+*/
+
+void	bresenham_line(t_fdf *fdf, int **bmp)
+{
+	float	diff_x;
+	float	diff_y;
+	int		max;
+	long	z;
+	long	z1;
+
+	z = fdf->map[(int)fdf->init->y][(int)fdf->init->x].z;
+	z1 = fdf->map[(int)fdf->end->y][(int)fdf->end->x].z;
+	convert_zoom(fdf);
+	set_color(fdf);
+	convert_isometric(fdf->init, z, fdf);
+	convert_isometric(fdf->end, z1, fdf);
+	convert_shift(fdf);
+	diff_x = fdf->end->x - fdf->init->x;
+	diff_y = fdf->end->y - fdf->init->y;
+	max = max_calculator(module(diff_x), module(diff_y));
+	diff_x /= max;
+	diff_y /= max;
+	while ((int)(fdf->init->x - fdf->end->x) || \
+			(int)(fdf->init->y - fdf->end->y))
+	{
+		bmp[(int)fdf->init->y][(int)fdf->init->x] = fdf->color;
+		fdf->init->x += diff_x;
+		fdf->init->y += diff_y;
+	}
+}
+
+void	plot_map(t_fdf *fdf)
+{
+	int	x;
+	int	y;
+	int	**bmp;
+	int	i;
+
+	bmp = ft_memalloc(sizeof(int *) * fdf->res[1]);
+	if (!bmp)
+		exit(1);
+	i = 0;
+	while (i < fdf->res[1])
+	{
+		bmp[i] = ft_memalloc(sizeof(int) * fdf->res[0]);
+		if (!bmp[i])
+			exit(1);
+		i++;
+	}
+	mlx_clear_window(fdf->mlx, fdf->win);
+	y = -1;
+	while (++y < fdf->mapy)
+	{
+		x = -1;
+		while (++x < fdf->mapx)
+		{
+			if (x < fdf->mapx - 1)
+			{
+				set_vertical(fdf, x, y);
+				bresenham_line(fdf, bmp);
+			}
+			if (y < fdf->mapy - 1)
+			{
+				set_horizontal(fdf, x, y);
+				bresenham_line(fdf, bmp);
+			}
+		}
+	}
+	ft_plot(bmp);
 }
