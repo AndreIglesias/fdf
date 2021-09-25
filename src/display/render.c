@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 01:27:49 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/16 18:08:59 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/09/24 21:23:23 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,11 @@ void	bresenham_line(t_fdf *fdf, int **bmp)
 
 	z = fdf->map[(int)fdf->init->y][(int)fdf->init->x].z;
 	z1 = fdf->map[(int)fdf->end->y][(int)fdf->end->x].z;
+	printf("letter z = %ld\n", z);
+	printf("letter z1 = %ld\n", z1);
 	convert_zoom(fdf);
-	set_color(fdf);
+	// set_color(fdf);
+	// fdf->color = 0xffffff;
 	convert_isometric(fdf->init, z, fdf);
 	convert_isometric(fdf->end, z1, fdf);
 	convert_shift(fdf);
@@ -105,10 +108,17 @@ void	bresenham_line(t_fdf *fdf, int **bmp)
 	max = max_calculator(module(diff_x), module(diff_y));
 	diff_x /= max;
 	diff_y /= max;
-	while ((int)(fdf->init->x - fdf->end->x) || \
-			(int)(fdf->init->y - fdf->end->y))
+	while (((int)(fdf->init->x - fdf->end->x) || \
+			(int)(fdf->init->y - fdf->end->y)) && \
+			((int)fdf->init->x > 0) && \
+			((int)fdf->init->y > 0) && \
+			((int)fdf->init->y < fdf->res[1])
+			)
 	{
-		bmp[(int)fdf->init->y][(int)fdf->init->x] = fdf->color;
+		if (z || z1)
+			bmp[(int)fdf->init->y][(int)fdf->init->x] = 0xFFFFFF;
+		else
+			bmp[(int)fdf->init->y][(int)fdf->init->x] = 0x00FF00;
 		fdf->init->x += diff_x;
 		fdf->init->y += diff_y;
 	}
