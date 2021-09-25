@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:32:13 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/14 15:33:52 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/09/24 21:25:01 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static void	init_map(t_fdf	*fdf)
 	set_coord(fdf->init, 0, 0);
 	set_coord(fdf->end, 0, 0);
 	fdf->view = 3;
-	fdf->zoom = 1;
+	fdf->zoom = 20;
 	fdf->shift_x = 150;
 	fdf->shift_y = 150;
-	fdf->zoom = 20;
+	fdf->zoom = 1;
 }
 
 t_fdf	*ft_fdf(char *name)
@@ -38,12 +38,9 @@ t_fdf	*ft_fdf(char *name)
 	return (&fdf);
 }
 
-int	exit_win(void *p __attribute__((unused)))
+int	exit_win(t_fdf	*fdf)
 {
-	t_fdf	*fdf;
-
-	fdf = ft_fdf(NULL);
-/*	if (fdf->init)
+	if (fdf->init)
 		mlx_destroy_image(fdf->init, fdf->mlx);
 	if (fdf->win)
 		mlx_destroy_window(fdf->mlx, fdf->win);
@@ -52,7 +49,6 @@ int	exit_win(void *p __attribute__((unused)))
 		mlx_destroy_display(fdf->mlx);
 		free(fdf->mlx);
 	}
-*/
 	exit(0);
 	return (1);
 }
@@ -85,11 +81,13 @@ int	key_win(int key, t_fdf *fdf)
 	}
 	handle_shift(key, fdf);
 	if (key == 65293)
-		fdf->zoom += 1;
+		fdf->zoom += 20;
 	if (key == 65506)
-		fdf->zoom -= 1;
+		fdf->zoom -= 20;
+//	if (fdf->init)
+//		mlx_destroy_image(fdf->init, fdf->mlx);
+//	mlx_clear_window(fdf->mlx,  fdf->win);
 	plot_map(fdf);
-//	mlx_clear_window(fdf->mlx, fdf->win);
 	return (0);
 }
 
@@ -112,7 +110,7 @@ static void	draw_map(void)
 		return ;
 	mlx_hook(fdf->win, CROSS_EVENT, CROSS_MASK, exit_win, 0);
 	printf("shift = %d\n", fdf->shift_x);
-	// plot_map(fdf);
+//	plot_map(fdf);
 	mlx_key_hook(fdf->win, key_win, fdf);
 	// mlx_loop_hook(fdf->mlx, plot_map, fdf);
 	// ft_plot(fdf->mlx, fdf->win, fdf->res, fdf->local_endian);
@@ -123,8 +121,23 @@ static void	draw_map(void)
 static void	fdf(char *file)
 {
 	t_fdf	*fdf;
+//	int		i = 0;
+//	int		j;
 
 	fdf = ft_fdf(file);
+	/*
+	while (i < fdf->mapy)
+	{
+		j = 0;
+		while (j < fdf->mapx)
+		{
+			printf("%3ld", fdf->map[i][j].z);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+	*/
 	draw_map();
 	return ;
 }
