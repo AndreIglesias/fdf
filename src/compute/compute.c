@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 20:40:11 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/16 18:05:24 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/09/24 21:09:41 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	set_color(t_fdf *fdf)
 	z = fdf->map[(int)fdf->init->y][(int)fdf->init->x].z;
 	z1 = fdf->map[(int)fdf->end->y][(int)fdf->end->x].z;
 	if (z || z1)
-		fdf->color = 0xe80c0c;
+		fdf->color = 0x00ff00;
 	else
 		fdf->color = 0xffffff;
 }
