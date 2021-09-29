@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:33:16 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/16 18:04:58 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/09/29 04:27:43 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	plot_map(t_fdf *fdf);
 
 void	wireframe(char *name);
 void	load_map(t_fdf *fdf, char *name);
+void	free_map(void);
 
 /*
 ** Compute

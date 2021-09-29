@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:32:13 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/29 03:57:30 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/09/29 04:41:25 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_fdf	*ft_fdf(char *name)
 int	exit_win(t_fdf	*fdf)
 {
 	(void) fdf;
+
+	free_map();
 /*	if (fdf->init)
 		mlx_destroy_image(fdf->init, fdf->mlx);
 	if (fdf->win)
