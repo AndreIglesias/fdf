@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:32:13 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/24 21:25:01 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/09/29 03:57:30 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ t_fdf	*ft_fdf(char *name)
 
 int	exit_win(t_fdf	*fdf)
 {
-	if (fdf->init)
+	(void) fdf;
+/*	if (fdf->init)
 		mlx_destroy_image(fdf->init, fdf->mlx);
 	if (fdf->win)
 		mlx_destroy_window(fdf->mlx, fdf->win);
@@ -49,6 +50,7 @@ int	exit_win(t_fdf	*fdf)
 		mlx_destroy_display(fdf->mlx);
 		free(fdf->mlx);
 	}
+*/
 	exit(0);
 	return (1);
 }
