@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 01:27:49 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/30 21:42:35 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/09/30 21:55:13 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	ft_plot(int **bmp)
 	t_fdf	*fdf;
 
 	fdf = ft_fdf(NULL);
+	if (fdf->l.img)
+		mlx_destroy_image(fdf->mlx, fdf->l.img);
 	if (!(l.img = mlx_new_image(fdf->mlx, fdf->res[0], fdf->res[1])))
 		exit_win(ft_fdf(NULL));
 	l.data = mlx_get_data_addr(l.img, &l.bpp, &l.bpl, &l.endian);
@@ -178,5 +180,5 @@ void	plot_map(t_fdf *fdf)
 	i = 0;
 	while (i < fdf->res[1])
 		free(bmp[i++]);
-	free(bmp);
+		free(bmp);
 }

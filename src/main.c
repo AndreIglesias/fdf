@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:32:13 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/30 21:38:21 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/09/30 21:54:31 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	exit_win(t_fdf	*fdf)
 	if (fdf->end)
 		free(fdf->end);
 	if (fdf->l.img)
-	  mlx_destroy_image(fdf->mlx, fdf->l.img);
+		mlx_destroy_image(fdf->mlx, fdf->l.img);
 	if (fdf->win)
 		mlx_destroy_window(fdf->mlx, fdf->win);
 	if (fdf->mlx)
