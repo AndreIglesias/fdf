@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 22:35:32 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/22 01:32:31 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/09/30 21:11:50 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ static int	extract_line(t_fdf *fdf, char *line, int y)
 	while (i < fdf->mapx)
 	{
 		fdf->map[y][i].z = ft_atoi(tab[i]);
+		free(tab[i]);
 		i++;
 	}
+	free(tab);
 	return (1);
 }
 
