@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:32:13 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/29 04:41:25 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/09/30 21:20:04 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ t_fdf	*ft_fdf(char *name)
 
 int	exit_win(t_fdf	*fdf)
 {
-	(void) fdf;
+	(void)fdf;
 
 	free_map();
-/*	if (fdf->init)
-		mlx_destroy_image(fdf->init, fdf->mlx);
+	/*if (fdf->init)
+	  mlx_destroy_image(fdf->init, fdf->mlx);*/
 	if (fdf->win)
 		mlx_destroy_window(fdf->mlx, fdf->win);
 	if (fdf->mlx)
@@ -52,7 +52,6 @@ int	exit_win(t_fdf	*fdf)
 		mlx_destroy_display(fdf->mlx);
 		free(fdf->mlx);
 	}
-*/
 	exit(0);
 	return (1);
 }
@@ -74,7 +73,7 @@ int	key_win(int key, t_fdf *fdf)
 	printf("%d\n", key);
 	if (key == 0xFF1B)
 	{
-		exit(0);
+		exit_win(ft_fdf(NULL));
 	}
 	if (key == 32)
 	{
