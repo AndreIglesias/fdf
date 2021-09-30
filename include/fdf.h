@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:33:16 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/29 04:27:43 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/09/30 21:30:19 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_x
 
 typedef struct s_fdf
 {
+	t_layer			l;
 	int				mapx;
 	int				mapy;
 	t_x				**map;

@@ -6,17 +6,44 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:32:13 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/30 21:20:04 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/09/30 21:38:21 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
 
+int	exit_win(t_fdf	*fdf)
+{
+	(void)fdf;
+
+	free_map();
+	if (!fdf)
+		exit(0);
+	if (fdf->init)
+		free(fdf->init);
+	if (fdf->end)
+		free(fdf->end);
+	if (fdf->l.img)
+	  mlx_destroy_image(fdf->mlx, fdf->l.img);
+	if (fdf->win)
+		mlx_destroy_window(fdf->mlx, fdf->win);
+	if (fdf->mlx)
+	{
+		mlx_destroy_display(fdf->mlx);
+		free(fdf->mlx);
+	}
+	exit(0);
+	return (1);
+}
+
 static void	init_map(t_fdf	*fdf)
 {
 	fdf->init = malloc(sizeof(t_pixel));
 	fdf->end = malloc(sizeof(t_pixel));
+	if (!fdf->init || !fdf->end)
+		exit_win(fdf);
+	fdf->l.img = NULL;
 	set_coord(fdf->init, 0, 0);
 	set_coord(fdf->end, 0, 0);
 	fdf->view = 3;
@@ -36,24 +63,6 @@ t_fdf	*ft_fdf(char *name)
 		init_map(&fdf);
 	}
 	return (&fdf);
-}
-
-int	exit_win(t_fdf	*fdf)
-{
-	(void)fdf;
-
-	free_map();
-	/*if (fdf->init)
-	  mlx_destroy_image(fdf->init, fdf->mlx);*/
-	if (fdf->win)
-		mlx_destroy_window(fdf->mlx, fdf->win);
-	if (fdf->mlx)
-	{
-		mlx_destroy_display(fdf->mlx);
-		free(fdf->mlx);
-	}
-	exit(0);
-	return (1);
 }
 
 void handle_shift(int key, t_fdf *fdf)

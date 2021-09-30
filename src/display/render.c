@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 01:27:49 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/27 13:35:02 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/09/30 21:31:09 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	ft_plot(int **bmp)
 	l.data = mlx_get_data_addr(l.img, &l.bpp, &l.bpl, &l.endian);
 	fill_img(&l, fdf->res[0], fdf->res[1], bmp);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, l.img, 0, 0);
+	fdf->l = l;
 }
 
 /*
