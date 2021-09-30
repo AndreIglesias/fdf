@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:33:16 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/30 21:30:19 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/09/30 21:42:55 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_fdf
 */
 
 t_fdf	*ft_fdf(char *name);
+int		exit_win(t_fdf	*fdf);
 
 /*
 **	Display

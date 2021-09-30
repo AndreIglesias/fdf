@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 01:27:49 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/30 21:31:09 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/09/30 21:42:35 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_plot(int **bmp)
 
 	fdf = ft_fdf(NULL);
 	if (!(l.img = mlx_new_image(fdf->mlx, fdf->res[0], fdf->res[1])))
-		exit(1);
+		exit_win(ft_fdf(NULL));
 	l.data = mlx_get_data_addr(l.img, &l.bpp, &l.bpl, &l.endian);
 	fill_img(&l, fdf->res[0], fdf->res[1], bmp);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, l.img, 0, 0);
@@ -146,13 +146,13 @@ void	plot_map(t_fdf *fdf)
 
 	bmp = ft_memalloc(sizeof(int *) * fdf->res[1]);
 	if (!bmp)
-		exit(1);
+		exit_win(ft_fdf(NULL));
 	i = 0;
 	while (i < fdf->res[1])
 	{
 		bmp[i] = ft_memalloc(sizeof(int) * fdf->res[0]);
 		if (!bmp[i])
-			exit(1);
+			exit_win(ft_fdf(NULL));
 		i++;
 	}
 	mlx_clear_window(fdf->mlx, fdf->win);
@@ -175,4 +175,8 @@ void	plot_map(t_fdf *fdf)
 		}
 	}
 	ft_plot(bmp);
+	i = 0;
+	while (i < fdf->res[1])
+		free(bmp[i++]);
+	free(bmp);
 }
