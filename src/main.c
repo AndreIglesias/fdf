@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:32:13 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/30 21:54:31 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/10/03 22:55:56 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 int	exit_win(t_fdf	*fdf)
 {
 	(void)fdf;
+	int		i = 0;
 
 	free_map();
 	if (!fdf)
@@ -33,6 +34,12 @@ int	exit_win(t_fdf	*fdf)
 		mlx_destroy_display(fdf->mlx);
 		free(fdf->mlx);
 	}
+	if (fdf->bmp)
+	{
+		while (i < fdf->res[1])
+			free(fdf->bmp[i++]);
+		free(fdf->bmp);
+	}
 	exit(0);
 	return (1);
 }
@@ -47,7 +54,7 @@ static void	init_map(t_fdf	*fdf)
 	set_coord(fdf->init, 0, 0);
 	set_coord(fdf->end, 0, 0);
 	fdf->view = 3;
-	fdf->zoom = 20;
+	fdf->zoom = 100;
 	fdf->shift_x = 150;
 	fdf->shift_y = 150;
 	fdf->zoom = 1;
@@ -79,7 +86,7 @@ void handle_shift(int key, t_fdf *fdf)
 
 int	key_win(int key, t_fdf *fdf)
 {
-	printf("%d\n", key);
+//	printf("%d\n", key);
 	if (key == 0xFF1B)
 	{
 		exit_win(ft_fdf(NULL));
@@ -96,11 +103,25 @@ int	key_win(int key, t_fdf *fdf)
 		fdf->zoom += 20;
 	if (key == 65506)
 		fdf->zoom -= 20;
-//	if (fdf->init)
-//		mlx_destroy_image(fdf->init, fdf->mlx);
-//	mlx_clear_window(fdf->mlx,  fdf->win);
 	plot_map(fdf);
 	return (0);
+}
+
+void init_bmp(t_fdf *fdf)
+{
+	int i = 0;
+
+	fdf->bmp = ft_memalloc(sizeof(int *) * fdf->res[1]);
+	if (!fdf->bmp)
+		exit_win(ft_fdf(NULL));
+	i = 0;
+	while (i < fdf->res[1])
+	{
+		fdf->bmp[i] = ft_memalloc(sizeof(int) * fdf->res[0]);
+		if (!fdf->bmp[i])
+			exit_win(ft_fdf(NULL));
+		i++;
+	}
 }
 
 static void	draw_map(void)
@@ -120,6 +141,7 @@ static void	draw_map(void)
 	fdf->res[1] -= 10;
 	if (!(fdf->win = mlx_new_window(fdf->mlx, fdf->res[0], fdf->res[1], "wireframe")))
 		return ;
+	init_bmp(fdf);
 	mlx_hook(fdf->win, CROSS_EVENT, CROSS_MASK, exit_win, 0);
 	printf("shift = %d\n", fdf->shift_x);
 //	plot_map(fdf);

@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 01:27:49 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/30 21:55:13 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/10/03 22:51:28 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,24 +98,20 @@ void	bresenham_line(t_fdf *fdf, int **bmp)
 
 	z = fdf->map[(int)fdf->init->y][(int)fdf->init->x].z;
 	z1 = fdf->map[(int)fdf->end->y][(int)fdf->end->x].z;
-	// printf("letter z = %ld\n", z);
-	// printf("letter z1 = %ld\n", z1);
 	convert_zoom(fdf);
-	// set_color(fdf);
-	// fdf->color = 0xffffff;
 	convert_isometric(fdf->init, z, fdf);
 	convert_isometric(fdf->end, z1, fdf);
 	convert_shift(fdf);
-	ft_putnbr(fdf->mapy);
-	ft_putchar('\n');
-	ft_putnbr(fdf->mapx);
-	ft_putchar('\n');
+//	ft_putnbr(fdf->mapy);
+//	ft_putchar('\n');
+//	ft_putnbr(fdf->mapx);
+//	ft_putchar('\n');
 	diff_x = fdf->end->x - fdf->init->x;
 	diff_y = fdf->end->y - fdf->init->y;
-	ft_putnbr(fdf->end->y);
-	ft_putchar('\n');
-	ft_putnbr(fdf->end->x);
-	ft_putchar('\n');
+//	ft_putnbr(fdf->end->y);
+//	ft_putchar('\n');
+//	ft_putnbr(fdf->end->x);
+//	ft_putchar('\n');
 	max = max_calculator(module(diff_x), module(diff_y));
 	diff_x /= max;
 	diff_y /= max;
@@ -143,19 +139,13 @@ void	plot_map(t_fdf *fdf)
 {
 	int	x;
 	int	y;
-	int	**bmp;
-	int	i;
 
-	bmp = ft_memalloc(sizeof(int *) * fdf->res[1]);
-	if (!bmp)
-		exit_win(ft_fdf(NULL));
-	i = 0;
-	while (i < fdf->res[1])
+	y = -1;
+	while (++y < fdf->res[1])
 	{
-		bmp[i] = ft_memalloc(sizeof(int) * fdf->res[0]);
-		if (!bmp[i])
-			exit_win(ft_fdf(NULL));
-		i++;
+		x = -1;
+		while (++x < fdf->res[0])
+			fdf->bmp[y][x] = 0;
 	}
 	mlx_clear_window(fdf->mlx, fdf->win);
 	y = -1;
@@ -167,18 +157,14 @@ void	plot_map(t_fdf *fdf)
 			if (x < fdf->mapx - 1)
 			{
 				set_vertical(fdf, x, y);
-				bresenham_line(fdf, bmp);
+				bresenham_line(fdf, fdf->bmp);
 			}
 			if (y < fdf->mapy - 1)
 			{
 				set_horizontal(fdf, x, y);
-				bresenham_line(fdf, bmp);
+				bresenham_line(fdf, fdf->bmp);
 			}
 		}
 	}
-	ft_plot(bmp);
-	i = 0;
-	while (i < fdf->res[1])
-		free(bmp[i++]);
-		free(bmp);
+	ft_plot(fdf->bmp);
 }

@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:33:16 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/30 21:42:55 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/10/03 22:12:14 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_fdf
 	int				shift_x;
 	int				shift_y;
 	int				zoom;
+	int				**bmp;
 	t_pixel			*init;
 	t_pixel			*end;
 }					t_fdf;
