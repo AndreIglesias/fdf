@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:32:13 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/10/03 22:55:56 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/10/03 23:07:48 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 int	exit_win(t_fdf	*fdf)
 {
-	(void)fdf;
-	int		i = 0;
+	int	i;
 
+	i = 0;
 	free_map();
 	if (!fdf)
 		exit(0);
@@ -72,7 +72,7 @@ t_fdf	*ft_fdf(char *name)
 	return (&fdf);
 }
 
-void handle_shift(int key, t_fdf *fdf)
+void	handle_shift(int key, t_fdf *fdf)
 {
 	if (key == 65361)
 		fdf->shift_x -= 100;
@@ -107,9 +107,9 @@ int	key_win(int key, t_fdf *fdf)
 	return (0);
 }
 
-void init_bmp(t_fdf *fdf)
+void	init_bmp(t_fdf *fdf)
 {
-	int i = 0;
+	int	i;
 
 	fdf->bmp = ft_memalloc(sizeof(int *) * fdf->res[1]);
 	if (!fdf->bmp)
@@ -135,43 +135,25 @@ static void	draw_map(void)
 	if (((unsigned char *)&a)[0] == 0x11)
 		fdf->local_endian = 1;
 	if (!(fdf->mlx = mlx_init()))
-		return ; //crear fx handle error
+		return ;
 	mlx_get_screen_size(fdf->mlx, &fdf->res[0], &fdf->res[1]);
 	fdf->res[0] -= 10;
 	fdf->res[1] -= 10;
-	if (!(fdf->win = mlx_new_window(fdf->mlx, fdf->res[0], fdf->res[1], "wireframe")))
+	if (!(fdf->win = mlx_new_window(fdf->mlx, fdf->res[0], \
+		fdf->res[1], "wireframe")))
 		return ;
 	init_bmp(fdf);
 	mlx_hook(fdf->win, CROSS_EVENT, CROSS_MASK, exit_win, 0);
 	printf("shift = %d\n", fdf->shift_x);
-//	plot_map(fdf);
 	mlx_key_hook(fdf->win, key_win, fdf);
-	// mlx_loop_hook(fdf->mlx, plot_map, fdf);
-	// ft_plot(fdf->mlx, fdf->win, fdf->res, fdf->local_endian);
-	// mlx_string_put(fdf->mlx, fdf->win, fdf->res[0] / 2 - 35, fdf->res[1] / 2, 0xFFFFFF, "FDF...");
 	mlx_loop(fdf->mlx);
 }
 
 static void	fdf(char *file)
 {
 	t_fdf	*fdf;
-//	int		i = 0;
-//	int		j;
 
 	fdf = ft_fdf(file);
-	/*
-	while (i < fdf->mapy)
-	{
-		j = 0;
-		while (j < fdf->mapx)
-		{
-			printf("%3ld", fdf->map[i][j].z);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-	*/
 	draw_map();
 	return ;
 }
