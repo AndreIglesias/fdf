@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 01:27:49 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/10/03 22:51:28 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/10/04 11:51:48 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,9 @@ void	bresenham_line(t_fdf *fdf, int **bmp)
 	while (((int)(fdf->init->x - fdf->end->x) || \
 			(int)(fdf->init->y - fdf->end->y)) && \
 			((int)fdf->init->y > 0) && \
-			((int)fdf->init->y < fdf->res[1])
+			((int)fdf->init->x > 0) && \
+			((int)fdf->init->y < fdf->res[1]) && \
+			((int)fdf->init->x < fdf->res[0])
 			)
 	{
 		if (z || z1)
