@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 01:27:49 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/10/04 11:51:48 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/10/05 15:37:30 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,8 @@ void	bresenham_line(t_fdf *fdf, int **bmp)
 	convert_isometric(fdf->init, z, fdf);
 	convert_isometric(fdf->end, z1, fdf);
 	convert_shift(fdf);
-//	ft_putnbr(fdf->mapy);
-//	ft_putchar('\n');
-//	ft_putnbr(fdf->mapx);
-//	ft_putchar('\n');
 	diff_x = fdf->end->x - fdf->init->x;
 	diff_y = fdf->end->y - fdf->init->y;
-//	ft_putnbr(fdf->end->y);
-//	ft_putchar('\n');
-//	ft_putnbr(fdf->end->x);
-//	ft_putchar('\n');
 	max = max_calculator(module(diff_x), module(diff_y));
 	diff_x /= max;
 	diff_y /= max;
