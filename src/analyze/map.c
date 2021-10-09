@@ -6,32 +6,78 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 22:35:32 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/10/08 04:20:05 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/10/09 10:39:08 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
 
+int		nbr_inbase(char c, int base)
+{
+	if (base <= 10)
+		return (c >= '0' && c <= '9');
+	return ((c >= '0' && c <= '9') || (c >= 'A' && c <= ('A' + base - 10)) || \
+	(c >= 'a' && c <= ('a' + base - 10)));
+}
+
+int		ft_atoi_base(const char *str, int base)
+{
+	int		i;
+	int		nbr;
+	int		sign;
+
+	if (!str[0] || (base < 2 || base > 16))
+		return (0);
+	i = 0;
+	nbr = 0;
+	sign = 1;
+	while (str[i] == '\t' || str[i] == '\v' || str[i] == '\n' || \
+		str[i] == ' ' || str[i] == '\r' || str[i] == '\f')
+		i += 1;
+	if (str[i] == '-' || str[i] == '+')
+		if (str[i++] == '-')
+			sign *= -1;
+	while (str[i] && nbr_inbase(str[i], base))
+	{
+		if (str[i] >= 'A' && 'F' >= str[i])
+			nbr = (nbr * base) + (str[i] - 'A' + 10);
+		else if (str[i] >= 'a' && 'f' >= str[i])
+			nbr = (nbr * base) + (str[i] - 'a' + 10);
+		else
+			nbr = (nbr * base) + (str[i] - '0');
+		i += 1;
+	}
+	return (nbr * sign);
+}
+
 void	ft_extract_color(t_fdf *fdf, char *str, int y, int x)
 {
-	int	i;
-	int	j;
-	char	tmp[10];
+	int		i;
+	int		j;
+	char	*tmp;
+	int		len;
 
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == ',')
 		{
+			while (str[i] == ',' && str[i] == '0' && str[i] == 'x')
+				i++;
 			j = 0;
-			while (j < 10 || str[i])
+			len = i;
+			while (str[len])
+				len++;
+			tmp = ft_memalloc(sizeof(char) * (len - i + 1));
+			while (tmp[j] || str[i])
 			{
 				tmp[j] = str[i];
 				j++;
 				i++;
 			}
-			fdf->map[y][x].color = ft_atoi(tmp); //pasar a base 10 y atoi
+			tmp[j] = '\0';
+			fdf->map[y][x].color = ft_atoi_base(tmp, 16);
 		}
 		i++;
 	}
@@ -49,7 +95,7 @@ static int	extract_line(t_fdf *fdf, char *line, int y)
 		// printf("%s ", tab[i]);
 		ft_extract_color(fdf, tab[i], y, i);
 		fdf->map[y][i].z = ft_atoi(tab[i]);
-		// printf("%i ", fdf->map[y][i].color);
+		printf("%i ", fdf->map[y][i].color);
 		free(tab[i]);
 		i++;
 	}
