@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 22:35:32 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/10/09 10:39:08 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/10/12 11:14:07 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ void	ft_extract_color(t_fdf *fdf, char *str, int y, int x)
 	{
 		if (str[i] == ',')
 		{
-			while (str[i] == ',' && str[i] == '0' && str[i] == 'x')
+			while (str[i] == ',' || str[i] == '0' || str[i] == 'x')
 				i++;
-			j = 0;
 			len = i;
 			while (str[len])
 				len++;
 			tmp = ft_memalloc(sizeof(char) * (len - i + 1));
-			while (tmp[j] || str[i])
+			j = 0;
+			while (str[i])
 			{
 				tmp[j] = str[i];
 				j++;
