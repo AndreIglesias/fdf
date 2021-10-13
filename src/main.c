@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:32:13 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/10/06 14:13:17 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/10/13 02:47:38 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,22 +152,8 @@ static void	draw_map(void)
 static void	fdf(char *file)
 {
 	t_fdf	*fdf;
-	int		i;
-	int		j;
 
 	fdf = ft_fdf(file);
-	i = 0;
-	while (i < fdf->mapy)
-	{
-		j = 0;
-		while (j < fdf->mapx)
-		{
-			printf("%3ld", fdf->map[i][j].z);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
 	draw_map();
 	return ;
 }

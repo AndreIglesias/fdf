@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 01:27:49 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/10/05 15:37:30 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/10/13 02:48:43 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,13 @@ void	bresenham_line(t_fdf *fdf, int **bmp)
 	int		max;
 	long	z;
 	long	z1;
+	int		color;
+	int		color1;
 
 	z = fdf->map[(int)fdf->init->y][(int)fdf->init->x].z;
 	z1 = fdf->map[(int)fdf->end->y][(int)fdf->end->x].z;
+	color = fdf->map[(int)fdf->init->y][(int)fdf->init->x].color;
+	color1 = fdf->map[(int)fdf->init->y][(int)fdf->init->x].color;
 	convert_zoom(fdf);
 	convert_isometric(fdf->init, z, fdf);
 	convert_isometric(fdf->end, z1, fdf);
@@ -119,6 +123,10 @@ void	bresenham_line(t_fdf *fdf, int **bmp)
 			bmp[(int)fdf->init->y][(int)fdf->init->x] = 0xFFFFFF;
 		else
 			bmp[(int)fdf->init->y][(int)fdf->init->x] = 0x00FF00;
+		if (color)
+			bmp[(int)fdf->init->y][(int)fdf->init->x] = color;
+		else if (color1)
+			bmp[(int)fdf->init->y][(int)fdf->init->x] = color1;
 		fdf->init->x += diff_x;
 		fdf->init->y += diff_y;
 	}
