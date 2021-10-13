@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 14:52:12 by ksoto             #+#    #+#             */
-/*   Updated: 2021/10/13 04:01:01 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/10/13 04:35:28 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 */
 
 int		ft_atoi(char *str);
-int     ft_atoi_base(const char *str, int base);
+int		ft_atoi_base(const char *str, int base);
 
 /*
 **	stdio
