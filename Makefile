@@ -6,7 +6,7 @@
 #    By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:07 by ciglesia          #+#    #+#              #
-#    Updated: 2021/09/29 03:22:56 by ksoto            ###   ########.fr        #
+#    Updated: 2021/10/13 03:13:28 by ksoto            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ DIRANA		=	$(DIRSRC)/analyze/
 DIRCOM		=	$(DIRSRC)/compute/
 DIRDIS		=	$(DIRSRC)/display/
 
-SRC			=	main.c
+SRC			=	main.c aux.c
 ANALYZE		=	analyze.c map.c
 COMPUTE		=	compute.c navigate.c
 DISPLAY		=	render.c
