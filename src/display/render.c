@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 01:27:49 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/10/14 11:07:26 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/10/14 12:01:41 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,14 @@ static void	set_color_ptr(unsigned char *line, t_layer *l, int color, int x)
 	byte = x * l->bpp / 8;
 	while (dec--)
 	{
+		*(line + byte + dec) = ((ucolor))[3 - dec];
+		if (l->endian)
+			*(line + byte + dec) = ((ucolor))[opp - 1 - dec];
 		if (l->endian == fdf->local_endian)
 		{
+			*(line + byte + dec) = ((ucolor))[dec];
 			if (l->endian)
 				*(line + byte + dec) = ((ucolor))[4 - opp + dec];
-			else
-				*(line + byte + dec) = ((ucolor))[dec];
-		}
-		else
-		{
-			if (l->endian)
-				*(line + byte + dec) = ((ucolor))[opp - 1 - dec];
-			else
-				*(line + byte + dec) = ((ucolor))[3 - dec];
 		}
 	}
 }
