@@ -6,26 +6,28 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 01:27:49 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/10/13 04:22:15 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/10/14 11:07:26 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	set_color_ptr(unsigned char *line, t_layer *l, int color, int x, int local_endian)
+static void	set_color_ptr(unsigned char *line, t_layer *l, int color, int x)
 {
 	int				byte;
 	int				dec;
 	int				opp;
 	unsigned char	*ucolor;
+	t_fdf			*fdf;
 
+	fdf = ft_fdf(NULL);
 	ucolor = (unsigned char *)&color;
 	dec = l->bpp / 8;
 	opp = dec;
 	byte = x * l->bpp / 8;
 	while (dec--)
 	{
-		if (l->endian == local_endian)
+		if (l->endian == fdf->local_endian)
 		{
 			if (l->endian)
 				*(line + byte + dec) = ((ucolor))[4 - opp + dec];
@@ -48,9 +50,7 @@ static void	fill_img(t_layer *l, int w, int h, int **bmp)
 	int				y;
 	int				color;
 	unsigned char	*ptr;
-	t_fdf			*fdf;//cambiar
 
-	fdf = ft_fdf(NULL);
 	y = 0;
 	while (y < h)
 	{
@@ -59,7 +59,7 @@ static void	fill_img(t_layer *l, int w, int h, int **bmp)
 		while (x < w)
 		{
 			color = bmp[y][x];
-			set_color_ptr(ptr, l, color, x, fdf->local_endian);
+			set_color_ptr(ptr, l, color, x);
 			x++;
 		}
 		y++;

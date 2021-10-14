@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 22:35:32 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/10/13 04:20:17 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/10/14 11:49:55 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static int	extract_line(t_fdf *fdf, char *line, int y)
 	i = 0;
 	while (i < fdf->mapx)
 	{
+		fdf->map[y][i].color = -1;
 		ft_extract_color(fdf, tab[i], y, i);
 		fdf->map[y][i].z = ft_atoi(tab[i]);
 		free(tab[i]);

@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 03:58:14 by ksoto             #+#    #+#             */
-/*   Updated: 2021/10/13 04:40:57 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/10/14 11:47:22 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	nbr_inbase(char c, int base)
 	(c >= 'a' && c <= ('a' + base - 10)));
 }
 
-void	loop_atoi_base(const char *str, int base, int i, int nbr)
+int	loop_atoi_base(const char *str, int base, int i, int nbr)
 {
 	while (str[i] && nbr_inbase(str[i], base))
 	{
@@ -32,6 +32,7 @@ void	loop_atoi_base(const char *str, int base, int i, int nbr)
 			nbr = (nbr * base) + (str[i] - '0');
 		i += 1;
 	}
+	return (nbr);
 }
 
 int	ft_atoi_base(const char *str, int base)
@@ -51,6 +52,6 @@ int	ft_atoi_base(const char *str, int base)
 	if (str[i] == '-' || str[i] == '+')
 		if (str[i++] == '-')
 			sign *= -1;
-	loop_atoi_base(str, base, i, nbr);
+	nbr = loop_atoi_base(str, base, i, nbr);
 	return (nbr * sign);
 }

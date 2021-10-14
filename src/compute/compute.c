@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 20:40:11 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/10/13 03:50:58 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/10/14 11:44:29 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void	set_color(t_fdf *fdf, int **bmp, int z, int z1)
 			bmp[(int)fdf->init->y][(int)fdf->init->x] = 0xE80C0C;
 		else
 			bmp[(int)fdf->init->y][(int)fdf->init->x] = 0xFFFFFF;
-		if (fdf->color)
+		if (fdf->color != -1)
 			bmp[(int)fdf->init->y][(int)fdf->init->x] = fdf->color;
-		else if (fdf->color1)
+		else if (fdf->color1 != -1)
 			bmp[(int)fdf->init->y][(int)fdf->init->x] = fdf->color1;
 		fdf->init->x += fdf->diff_x;
 		fdf->init->y += fdf->diff_y;
