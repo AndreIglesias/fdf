@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 22:35:32 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/10/14 15:17:38 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/10/14 15:25:14 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_extract_color(t_fdf *fdf, char *str, int y, int x)
 			tmp[j] = '\0';
 			fdf->map[y][x].color = ft_atoi_base(tmp, 16);
 			free(tmp);
+			break;
 		}
 		i++;
 	}
