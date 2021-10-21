@@ -3,15 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 22:35:32 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/08/22 01:32:31 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/10/14 15:25:14 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
+
+void	ft_extract_color(t_fdf *fdf, char *str, int y, int x)
+{
+	int		i;
+	int		j;
+	int		len;
+	char	*tmp;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ',')
+		{
+			while (str[i] == ',' || str[i] == '0' || str[i] == 'x')
+				i++;
+			len = i;
+			while (str[len])
+				len++;
+			tmp = ft_memalloc(sizeof(char) * (len - i + 1));
+			j = 0;
+			while (str[i])
+				tmp[j++] = str[i++];
+			tmp[j] = '\0';
+			fdf->map[y][x].color = ft_atoi_base(tmp, 16);
+			free(tmp);
+			break;
+		}
+		i++;
+	}
+}
+
 static int	extract_line(t_fdf *fdf, char *line, int y)
 {
 	char	**tab;
@@ -21,9 +52,13 @@ static int	extract_line(t_fdf *fdf, char *line, int y)
 	i = 0;
 	while (i < fdf->mapx)
 	{
+		fdf->map[y][i].color = -1;
+		ft_extract_color(fdf, tab[i], y, i);
 		fdf->map[y][i].z = ft_atoi(tab[i]);
+		free(tab[i]);
 		i++;
 	}
+	free(tab);
 	return (1);
 }
 

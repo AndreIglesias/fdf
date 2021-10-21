@@ -6,7 +6,7 @@
 /*   By: ksoto <ksoto@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:33:16 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/09/16 18:04:58 by ksoto            ###   ########.fr       */
+/*   Updated: 2021/10/13 03:50:54 by ksoto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_x
 
 typedef struct s_fdf
 {
+	t_layer			l;
 	int				mapx;
 	int				mapy;
 	t_x				**map;
@@ -53,9 +54,13 @@ typedef struct s_fdf
 	int				res[2];
 	int				view;
 	int				color;
+	int				color1;
 	int				shift_x;
 	int				shift_y;
+	float			diff_x;
+	float			diff_y;
 	int				zoom;
+	int				**bmp;
 	t_pixel			*init;
 	t_pixel			*end;
 }					t_fdf;
@@ -65,6 +70,9 @@ typedef struct s_fdf
 */
 
 t_fdf	*ft_fdf(char *name);
+int		exit_win(t_fdf	*fdf);
+void	init_map(t_fdf	*fdf);
+int		key_win(int key, t_fdf *fdf);
 
 /*
 **	Display
@@ -80,14 +88,16 @@ void	plot_map(t_fdf *fdf);
 
 void	wireframe(char *name);
 void	load_map(t_fdf *fdf, char *name);
+void	free_map(void);
 
 /*
 ** Compute
 */
+void	bresenham_line(t_fdf *fdf, int **bmp);
 void	set_coord(t_pixel *pixel, float x, float y);
 void	set_horizontal(t_fdf *fdf, int x, int y);
 void	set_vertical(t_fdf *fdf, int x, int y);
-void	set_color(t_fdf *fdf);
+void	set_color(t_fdf *fdf, int **bmp, int z, int z1);
 void	convert_isometric(t_pixel *px, int z, t_fdf *fdf);
 int		module(int a);
 int		max_calculator(int a, int b);
