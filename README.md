@@ -16,3 +16,14 @@ Run with 1 map:
 ```
 ./fdf wireframes/42.fdf
 ```
+
+## File structure:
+
+##|File|Description
+---|---|---
+1.0|[Makefile](./Makefile)|Makefile of the main program
+2.0|[main](./src/main.c)|principal main of the program
+3.0|[analyze](./src/analyze)|read map of structure
+4.0|[main](./src/compute)|compute calcules of the program
+5.0|[main](./src/display)|display render of the program
+6.0|[wireframes](./wireframes)|directory of maps to compile
